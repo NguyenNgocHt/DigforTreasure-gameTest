@@ -1,0 +1,286 @@
+
+Char_Avatar.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+avatar/base/arm_r
+  rotate: true
+  xy: 1441, 81
+  size: 88, 99
+  orig: 88, 99
+  offset: 0, 0
+  index: -1
+avatar/base/body
+  rotate: false
+  xy: 1448, 250
+  size: 148, 199
+  orig: 148, 199
+  offset: 0, 0
+  index: -1
+avatar/base/ear_r
+  rotate: true
+  xy: 829, 6
+  size: 61, 94
+  orig: 61, 94
+  offset: 0, 0
+  index: -1
+avatar/base/eye_angry
+  rotate: true
+  xy: 1291, 180
+  size: 269, 118
+  orig: 269, 118
+  offset: 0, 0
+  index: -1
+avatar/base/eye_cry
+  rotate: true
+  xy: 1015, 155
+  size: 294, 151
+  orig: 294, 151
+  offset: 0, 0
+  index: -1
+avatar/base/eye_lay
+  rotate: false
+  xy: 927, 9
+  size: 294, 58
+  orig: 294, 58
+  offset: 0, 0
+  index: -1
+avatar/base/eye_smile
+  rotate: true
+  xy: 982, 153
+  size: 296, 29
+  orig: 296, 29
+  offset: 0, 0
+  index: -1
+avatar/base/face
+  rotate: false
+  xy: 620, 71
+  size: 358, 378
+  orig: 358, 378
+  offset: 0, 0
+  index: -1
+avatar/base/fore_arm_r
+  rotate: true
+  xy: 982, 73
+  size: 76, 88
+  orig: 76, 88
+  offset: 0, 0
+  index: -1
+avatar/base/hand_r
+  rotate: false
+  xy: 1445, 11
+  size: 64, 66
+  orig: 64, 66
+  offset: 0, 0
+  index: -1
+avatar/base/leg_r
+  rotate: true
+  xy: 1254, 81
+  size: 84, 183
+  orig: 84, 183
+  offset: 0, 0
+  index: -1
+avatar/base/mouth_angry
+  rotate: false
+  xy: 590, 27
+  size: 71, 33
+  orig: 71, 33
+  offset: 0, 0
+  index: -1
+avatar/base/mouth_breathe1
+  rotate: false
+  xy: 487, 4
+  size: 59, 12
+  orig: 59, 12
+  offset: 0, 0
+  index: -1
+avatar/base/mouth_breathe2
+  rotate: false
+  xy: 566, 24
+  size: 20, 36
+  orig: 20, 36
+  offset: 0, 0
+  index: -1
+avatar/base/mouth_excited
+  rotate: false
+  xy: 1448, 214
+  size: 81, 32
+  orig: 81, 32
+  offset: 0, 0
+  index: -1
+avatar/base/mouth_hungry
+  rotate: false
+  xy: 120, 11
+  size: 71, 49
+  orig: 71, 49
+  offset: 0, 0
+  index: -1
+avatar/base/mouth_scare
+  rotate: false
+  xy: 294, 19
+  size: 96, 41
+  orig: 96, 41
+  offset: 0, 0
+  index: -1
+avatar/base/mouth_smile
+  rotate: false
+  xy: 394, 19
+  size: 89, 41
+  orig: 89, 41
+  offset: 0, 0
+  index: -1
+avatar/base/mouth_wonder
+  rotate: false
+  xy: 566, 6
+  size: 35, 14
+  orig: 35, 14
+  offset: 0, 0
+  index: -1
+avatar/base/mouth_worry
+  rotate: true
+  xy: 256, 14
+  size: 46, 34
+  orig: 46, 34
+  offset: 0, 0
+  index: -1
+avatar/base/mouthbase_1
+  rotate: true
+  xy: 195, 11
+  size: 49, 40
+  orig: 49, 40
+  offset: 0, 0
+  index: -1
+avatar/base/mouthbase_2
+  rotate: true
+  xy: 91, 9
+  size: 51, 25
+  orig: 51, 25
+  offset: 0, 0
+  index: -1
+avatar/base/mouthbase_3
+  rotate: false
+  xy: 487, 20
+  size: 75, 40
+  orig: 75, 40
+  offset: 0, 0
+  index: -1
+avatar/base/nose
+  rotate: false
+  xy: 294, 5
+  size: 26, 10
+  orig: 26, 10
+  offset: 0, 0
+  index: -1
+avatar/eye/eye_5
+  rotate: true
+  xy: 1170, 169
+  size: 280, 88
+  orig: 280, 88
+  offset: 0, 0
+  index: -1
+avatar/eye/eye_elip_5
+  rotate: false
+  xy: 1225, 7
+  size: 216, 69
+  orig: 216, 69
+  offset: 0, 0
+  index: -1
+avatar/eye/eye_hilight_5
+  rotate: false
+  xy: 1413, 173
+  size: 179, 22
+  orig: 179, 22
+  offset: 0, 0
+  index: -1
+avatar/eyebrow/eyebrow_0
+  rotate: true
+  xy: 1413, 199
+  size: 250, 31
+  orig: 250, 31
+  offset: 0, 0
+  index: -1
+avatar/face_decor/face_decor_0
+  rotate: true
+  xy: 1262, 178
+  size: 271, 25
+  orig: 271, 25
+  offset: 0, 0
+  index: -1
+avatar/hair/hair_behind_2
+  rotate: true
+  xy: 4, 453
+  size: 567, 562
+  orig: 567, 562
+  offset: 0, 0
+  index: -1
+avatar/hair/hair_behind_2_hilight
+  rotate: true
+  xy: 570, 453
+  size: 567, 562
+  orig: 567, 562
+  offset: 0, 0
+  index: -1
+avatar/hair/hair_behind_2_item
+  rotate: true
+  xy: 1136, 453
+  size: 567, 562
+  orig: 567, 562
+  offset: 0, 0
+  index: -1
+avatar/hair/hair_front_2
+  rotate: true
+  xy: 4, 64
+  size: 385, 304
+  orig: 385, 304
+  offset: 0, 0
+  index: -1
+avatar/hair/hair_front_2_hilight
+  rotate: true
+  xy: 312, 64
+  size: 385, 304
+  orig: 385, 304
+  offset: 0, 0
+  index: -1
+avatar/mouth/mouth_0
+  rotate: true
+  xy: 239, 12
+  size: 48, 13
+  orig: 48, 13
+  offset: 0, 0
+  index: -1
+avatar/pant/pant_hip_7
+  rotate: false
+  xy: 665, 6
+  size: 160, 61
+  orig: 160, 61
+  offset: 0, 0
+  index: -1
+avatar/pant/pant_leg_7
+  rotate: false
+  xy: 1074, 77
+  size: 86, 74
+  orig: 86, 74
+  offset: 0, 0
+  index: -1
+avatar/shirt/shirt_14
+  rotate: true
+  xy: 1544, 7
+  size: 162, 156
+  orig: 162, 156
+  offset: 0, 0
+  index: -1
+avatar/shirt/shirt_behind_14
+  rotate: false
+  xy: 1164, 80
+  size: 86, 71
+  orig: 86, 75
+  offset: 0, 2
+  index: -1
+avatar/shoes/shoes_11
+  rotate: false
+  xy: 4, 5
+  size: 83, 55
+  orig: 83, 55
+  offset: 0, 0
+  index: -1
