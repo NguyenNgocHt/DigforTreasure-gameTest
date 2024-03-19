@@ -71,7 +71,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -120,7 +119,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -173,13 +171,13 @@
     "_dstBlendFactor": 4,
     "_color": {
       "__type__": "cc.Color",
-      "r": 40,
-      "g": 164,
-      "b": 233,
-      "a": 115
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "1363bfbb-aa4e-46f6-b798-7704a1474659@f9941",
+      "__uuid__": "e61cac2e-b202-47ff-af6a-1f677c3f5aef@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -237,7 +235,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 157.39000000000004,
+      "y": -4.439,
       "z": 0
     },
     "_lrot": {
@@ -253,7 +251,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -276,7 +273,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 388.93,
+      "width": 313.34,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -306,16 +303,16 @@
     "_dstBlendFactor": 4,
     "_color": {
       "__type__": "cc.Color",
-      "r": 233,
-      "g": 217,
-      "b": 40,
+      "r": 0,
+      "g": 0,
+      "b": 255,
       "a": 255
     },
-    "_string": "LOADING DOMINO...",
+    "_string": "LOADING DIG FOR TREASURE...",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
-    "_actualFontSize": 40,
-    "_fontSize": 40,
+    "_actualFontSize": 20,
+    "_fontSize": 20,
     "_fontFamily": "Arial",
     "_lineHeight": 40,
     "_overflow": 0,
@@ -324,7 +321,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_isItalic": false,
-    "_isBold": false,
+    "_isBold": true,
     "_isUnderline": false,
     "_underlineHeight": 2,
     "_cacheMode": 0,
@@ -377,7 +374,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 0,
+      "y": -33.546,
       "z": 0
     },
     "_lrot": {
@@ -393,7 +390,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -442,7 +438,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -495,9 +490,9 @@
     "_dstBlendFactor": 4,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 204,
+      "g": 33,
+      "b": 33,
       "a": 255
     },
     "_spriteFrame": {
@@ -531,10 +526,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "d634gO/e5K1J2XDfOdnwf+",
-    "instance": null,
-    "targetOverrides": null,
-    "nestedPrefabInstanceRoots": null
+    "fileId": "d634gO/e5K1J2XDfOdnwf+"
   },
   {
     "__type__": "cc.UITransform",
@@ -690,7 +682,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -739,7 +730,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -792,12 +782,12 @@
     "_dstBlendFactor": 4,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
-    "_string": "Go To Play Screen 1",
+    "_string": "Go To Play Screen",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 20,
@@ -810,7 +800,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_isItalic": false,
-    "_isBold": false,
+    "_isBold": true,
     "_isUnderline": false,
     "_underlineHeight": 2,
     "_cacheMode": 0,
@@ -876,9 +866,9 @@
     "_dstBlendFactor": 4,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 33,
+      "g": 122,
+      "b": 204,
       "a": 255
     },
     "_spriteFrame": {
@@ -1039,7 +1029,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -1146,7 +1135,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1560,
+      "width": 1280,
       "height": 720
     },
     "_anchorPoint": {
@@ -1258,7 +1247,6 @@
       "__id__": 0
     },
     "fileId": "bdh02uIV1MebUuCFyR/HTU",
-    "instance": null,
     "targetOverrides": null
   }
 ]
