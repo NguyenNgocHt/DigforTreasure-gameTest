@@ -1,3 +1,4 @@
+import { DT_commanID_IP } from "./../network/DT_networkDefine";
 import { Label, log, Prefab } from "cc";
 import { _decorator, Component, Node } from "cc";
 import VDBasePopup from "../../../../vd-framework/ui/VDBasePopup";
@@ -12,6 +13,8 @@ import { Button } from "cc";
 import { Sprite } from "cc";
 import { ColorKey } from "cc";
 import { color } from "cc";
+import { IP_GET_TREASURE_RANDOM_LIST } from "../model/DT_inputDataModel";
+import { poolControler } from "../controler/pool/poolControler";
 const { ccclass, property } = _decorator;
 
 @ccclass("dm_PlayScreen3")
@@ -21,6 +24,7 @@ export class dm_PlayScreen3 extends VDBaseScreen {
   @property(Node)
   TreasureGroup: Node = null;
   private treasureData: DT_INIT_TREASURE_MODEL = null;
+  private IP_getTreasureRandomList: IP_GET_TREASURE_RANDOM_LIST = null;
   private grayColor = color(128, 128, 128);
   private whiteColor = color(255, 255, 255);
   start() {
@@ -35,7 +39,7 @@ export class dm_PlayScreen3 extends VDBaseScreen {
     // VDScreenManager.instance.popToScreen('dm_PlayScreen');
   }
 
-  onClickBtnShowPopup() {
+  onClickBtnShowPopup(event: TouchEvent, indexTreasure: number) {
     VDScreenManager.instance.showPopupFromPrefabName(
       "res/prefabs/popup/popup_1",
       (popup: VDBasePopup) => {
@@ -50,6 +54,12 @@ export class dm_PlayScreen3 extends VDBaseScreen {
       true,
       true
     );
+    console.log("indexTreasure", indexTreasure);
+    this.IP_getTreasureRandomList = {
+      id: DT_commanID_IP.GET_TREASURE_RAMDOM_INDEX,
+      TreasureIndex: indexTreasure,
+    };
+    dm_Director.instance.sendGetListRandomTreasure(this.IP_getTreasureRandomList);
   }
 
   onClickBtnShowTableView() {

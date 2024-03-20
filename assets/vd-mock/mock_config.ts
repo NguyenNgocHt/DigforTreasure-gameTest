@@ -17,3 +17,4 @@ export let mock_treasureOpen = {
   ID: 1000,
   L: [1, 0, 0, 0, 0, 0, 0, 0],
 };
+export let mock_playerData = {};

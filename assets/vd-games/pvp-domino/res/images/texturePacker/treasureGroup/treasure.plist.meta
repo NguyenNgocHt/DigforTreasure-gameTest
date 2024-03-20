@@ -1,0 +1,247 @@
+{
+  "ver": "1.0.7",
+  "importer": "sprite-atlas",
+  "imported": true,
+  "uuid": "3b9e7ad2-fae3-4fd8-b568-dd1449558a43",
+  "files": [
+    ".json"
+  ],
+  "subMetas": {
+    "51503": {
+      "importer": "sprite-frame",
+      "uuid": "3b9e7ad2-fae3-4fd8-b568-dd1449558a43@51503",
+      "displayName": "",
+      "id": "51503",
+      "name": "treasure_4",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 119,
+        "trimY": 110,
+        "width": 127,
+        "height": 129,
+        "rawWidth": 127,
+        "rawHeight": 129,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "dbe14985-5808-4ba9-9ec6-b6517b326627@6c48a",
+        "atlasUuid": "3b9e7ad2-fae3-4fd8-b568-dd1449558a43"
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "59493": {
+      "importer": "sprite-frame",
+      "uuid": "3b9e7ad2-fae3-4fd8-b568-dd1449558a43@59493",
+      "displayName": "",
+      "id": "59493",
+      "name": "treasure_3",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 110,
+        "width": 119,
+        "height": 119,
+        "rawWidth": 119,
+        "rawHeight": 119,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "dbe14985-5808-4ba9-9ec6-b6517b326627@6c48a",
+        "atlasUuid": "3b9e7ad2-fae3-4fd8-b568-dd1449558a43"
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "4ec83": {
+      "importer": "sprite-frame",
+      "uuid": "3b9e7ad2-fae3-4fd8-b568-dd1449558a43@4ec83",
+      "displayName": "",
+      "id": "4ec83",
+      "name": "treasure_1",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 117,
+        "height": 110,
+        "rawWidth": 117,
+        "rawHeight": 110,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "dbe14985-5808-4ba9-9ec6-b6517b326627@6c48a",
+        "atlasUuid": "3b9e7ad2-fae3-4fd8-b568-dd1449558a43"
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "06956": {
+      "importer": "sprite-frame",
+      "uuid": "3b9e7ad2-fae3-4fd8-b568-dd1449558a43@06956",
+      "displayName": "",
+      "id": "06956",
+      "name": "treasure_2",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 117,
+        "trimY": 0,
+        "width": 117,
+        "height": 109,
+        "rawWidth": 117,
+        "rawHeight": 109,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "dbe14985-5808-4ba9-9ec6-b6517b326627@6c48a",
+        "atlasUuid": "3b9e7ad2-fae3-4fd8-b568-dd1449558a43"
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "0c84b": {
+      "importer": "sprite-frame",
+      "uuid": "3b9e7ad2-fae3-4fd8-b568-dd1449558a43@0c84b",
+      "displayName": "",
+      "id": "0c84b",
+      "name": "treasure_5",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 239,
+        "width": 149,
+        "height": 127,
+        "rawWidth": 149,
+        "rawHeight": 127,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "dbe14985-5808-4ba9-9ec6-b6517b326627@6c48a",
+        "atlasUuid": "3b9e7ad2-fae3-4fd8-b568-dd1449558a43"
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "atlasTextureName": "treasure.png",
+    "format": 3,
+    "uuid": "3b9e7ad2-fae3-4fd8-b568-dd1449558a43",
+    "textureUuid": "dbe14985-5808-4ba9-9ec6-b6517b326627@6c48a"
+  }
+}

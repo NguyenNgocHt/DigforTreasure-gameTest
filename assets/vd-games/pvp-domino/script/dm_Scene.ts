@@ -13,6 +13,8 @@ export class dm_Scene extends Component {
   onLoad() {
     DT_eventListenner.instance.RegisterEvent();
     dm_Director.instance.RegisterEvent();
+    DigTreasureControler.instance.RegisterEvent();
+    DigTreasureControler.instance.initListMoneyInTreasure();
     log("@ dm_Scene: onLoad  !!!");
     let bundle = assetManager.getBundle("bundle_" + dm_Config.GAME_NAME);
     if (bundle) {

@@ -1,14 +1,13 @@
-import { _decorator, Component, Node } from 'cc';
-const { ccclass, property } = _decorator;
-
-@ccclass('DT_inputDataModel')
-export class DT_inputDataModel extends Component {
-    start() {
-
-    }
-
-    update(deltaTime: number) {
-        
-    }
-}
-
+export type PALYER_NAME_DATA = {
+  id: number;
+  playerName: string;
+};
+export type IP_GET_TREASURE_RANDOM_LIST = {
+  id: number;
+  TreasureIndex: number;
+};
+export type IP_SEND_INDEX_ONCLICK_PIECE = {
+  id: number;
+  pieceIndex: number;
+  indexInArr: number;
+};
