@@ -1,6 +1,5 @@
 import { DT_commandID_OP, DT_GAME_STATUS_EVENT } from "./../network/DT_networkDefine";
 import { _decorator, Component, Node } from "cc";
-import { DigTreasureControler } from "../common/DigTreasureControler";
 import { VDEventListener } from "../../../../vd-framework/common/VDEventListener";
 import { DT_initTreaDataFull, DT_listRandomLocationTreasure_OP, DT_playerInfoDataFull, DT_sendResultOnclickingThePiece } from "../model/DT_outputDataFull";
 import { DT_convertDataModel } from "../model/DT_convertDataModel";

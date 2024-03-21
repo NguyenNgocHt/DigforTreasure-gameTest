@@ -1,10 +1,7 @@
-import { dm_TableView } from "./table_view/dm_TableView";
-import { StartScene } from "./../../../../vd-boot/StartScene";
-import { _decorator, Component, Node, Vec3, tween } from "cc";
+import { _decorator, Node, Vec3, tween } from "cc";
 import VDBasePopup from "../../../../vd-framework/ui/VDBasePopup";
 import { dm_Director } from "../common/dm_Director";
 import { DT_listRandomLocationTreasure_dataModel, DT_sendResultOnclickingThePiece_dataModel } from "../model/DT_outputDataModel";
-import { poolControler } from "../controler/pool/poolControler";
 import { pieceControler } from "../controler/pieceControler";
 import { DigTreasureControler } from "../common/DigTreasureControler";
 import { Label } from "cc";
@@ -46,11 +43,9 @@ export class dm_Popup1 extends VDBasePopup {
     for (let i = 0; i < this.rowNumber; i++) {
       for (let j = 0; j < this.columnNumber; j++) {
         let k = i * this.columnNumber + j;
-        console.log("gia trị của K", k);
         let pieceControler = listIconNode[k].getComponent("pieceControler") as pieceControler;
         pieceControler.setPiceIndex(listLocation[k], k);
         this.pieceParent.addChild(listIconNode[k]);
-        console.log(posStart.x + j * this.distance_2_icon, posStart.y - i * this.distance_2_icon);
         listIconNode[k].setWorldPosition(posStart.x + j * this.distance_2_icon, posStart.y - i * this.distance_2_icon, 0);
       }
     }

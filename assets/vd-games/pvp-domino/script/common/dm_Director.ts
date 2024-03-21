@@ -3,13 +3,10 @@ import { dm_Popup1 } from "./../popups/dm_Popup1";
 import { dm_PlayScreen3 } from "./../screens/dm_PlayScreen3";
 import { _decorator, Component, Node } from "cc";
 import { dm_PlayScreen } from "../screens/dm_PlayScreen";
-import { DigTreasureControler } from "./DigTreasureControler";
 import { VDEventListener } from "../../../../vd-framework/common/VDEventListener";
 import { DT_commanID_IP, DT_GAME_STATUS_EVENT } from "../network/DT_networkDefine";
 import { DT_INIT_TREASURE_MODEL, DT_listRandomLocationTreasure_dataModel, DT_PLAYER_INFO_MODEL, DT_sendResultOnclickingThePiece_dataModel } from "../model/DT_outputDataModel";
-import { DT_initTreaDataFull } from "../model/DT_outputDataFull";
 import { IP_GET_LIST_TREASURE_MAP, IP_GET_TREASURE_RANDOM_LIST, IP_SEND_INDEX_ONCLICK_PIECE, PALYER_NAME_DATA } from "../model/DT_inputDataModel";
-import { createDefaultPipeline } from "cc";
 import { dm_PopupNotify } from "../popups/dm_PopupNotify";
 const { ccclass, property } = _decorator;
 

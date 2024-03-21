@@ -1,16 +1,11 @@
-import { DT_convertDataModel } from "./../model/DT_convertDataModel";
 import { DT_initTreaDataFull, DT_listRandomLocationTreasure_OP, DT_sendResultOnclickingThePiece } from "./../model/DT_outputDataFull";
 import { DT_PLAYER_INFO_MODEL } from "./../model/DT_outputDataModel";
 import { DT_commandID_OP } from "./../network/DT_networkDefine";
-import { VDScrollBarDirection } from "./../../../../vd-framework/ui/VDScrollBar";
-import { mock_treasureOpen } from "./../../../../vd-mock/mock_config";
-import { StartScene } from "./../../../../vd-boot/StartScene";
 import { VDEventListener } from "../../../../vd-framework/common/VDEventListener";
-import { _decorator, Component, Node, director } from "cc";
+import { _decorator, Component } from "cc";
 import { DT_GAME_STATUS_EVENT, DT_commanID_IP } from "../network/DT_networkDefine";
 import { IP_GET_LIST_TREASURE_MAP, IP_GET_TREASURE_RANDOM_LIST, IP_SEND_INDEX_ONCLICK_PIECE, PALYER_NAME_DATA } from "../model/DT_inputDataModel";
 import { DT_playerInfoDataFull } from "../model/DT_outputDataFull";
-import { ValueType } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("DigTreasureControler")
@@ -93,7 +88,8 @@ export class DigTreasureControler extends Component {
     console.log("user name data", this.userNameData);
   }
   setRandomListDigLocation(data: IP_GET_TREASURE_RANDOM_LIST) {
-    this.digTreasureCurrentIndex = data.TreasureIndex;
+    this.digTreasureCurrentIndex = data.TreasureIndex - 1;
+    console.log("digtreasue current index", this.digTreasureCurrentIndex);
     this.listRandom = [];
     console.log("data", data);
     let randomLocationWithTreasure = this.RandomNumber(0, 8);

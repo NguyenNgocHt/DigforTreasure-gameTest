@@ -32,19 +32,14 @@ export class poolControler extends Component {
     this.initPieceTreasure();
   }
   showConectFromDirector() {
-    console.log("bắt được pool");
     console.log(this.poolPieceList);
   }
   public initPieceTreasure() {
     for (let i = 0; i < this.numberPool; i++) {
-      console.log("jhasfdasef", i);
       let iconNodePiece: Node | null = null;
-      console.log("prefab", this.icon_prefab);
       if (this.icon_prefab) {
-        console.log("nhay vào dây 1");
         iconNodePiece = instantiate(this.icon_prefab);
         if (iconNodePiece) {
-          console.log("nhay vào dây 2");
           this.pool_piece_treasure_group.addChild(iconNodePiece);
           iconNodePiece.setPosition(0, 0);
           iconNodePiece.active = false;
@@ -52,20 +47,15 @@ export class poolControler extends Component {
         }
       }
     }
-
-    console.log(this.poolPieceList);
-    console.log(this.pool_piece_treasure_group);
   }
 
   public GetIconNodePiece() {
     if (this.poolPieceList.length > 0) {
       let iconMode = this.poolPieceList.pop();
-      //   this.ResetIconBgNodeToOrigin(iconBgtetrisNode);
       return iconMode;
     } else {
       this.initPieceTreasure();
       let iconNode = this.poolPieceList.pop();
-      //   this.ResetIconBgNodeToOrigin(iconBgtetrisNode);
       return iconNode;
     }
   }

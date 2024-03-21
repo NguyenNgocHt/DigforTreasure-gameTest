@@ -1,5 +1,3 @@
-import { DT_GAME_STATUS_EVENT } from "./../network/DT_networkDefine";
-import { DT_sendResultOnclickingThePiece } from "./../model/DT_outputDataFull";
 import { IP_SEND_INDEX_ONCLICK_PIECE } from "./../model/DT_inputDataModel";
 import { _decorator, Component, Node } from "cc";
 import { dm_Director } from "../common/dm_Director";

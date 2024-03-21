@@ -1,6 +1,6 @@
 import { ProgressBar } from "cc";
 import { Label } from "cc";
-import { AudioClip, assetManager, Asset, Button, utils, sp, Prefab, tween, Vec3 } from "cc";
+import { AudioClip, assetManager, Asset, Prefab } from "cc";
 import { sys } from "cc";
 import { _decorator, Component, log } from "cc";
 import { VDAudioManager } from "../../../../vd-framework/audio/VDAudioManager";
@@ -8,7 +8,6 @@ import VDLocalDataManager from "../../../../vd-framework/common/VDLocalDataManag
 import VDBasePopup from "../../../../vd-framework/ui/VDBasePopup";
 import VDBaseScreen from "../../../../vd-framework/ui/VDBaseScreen";
 import VDScreenManager from "../../../../vd-framework/ui/VDScreenManager";
-import { mock_config } from "../../../../vd-mock/mock_config";
 import { dm_Config } from "../common/dm_Config";
 import { dm_Director } from "../common/dm_Director";
 import { dm_PlayScreen } from "./dm_PlayScreen";
