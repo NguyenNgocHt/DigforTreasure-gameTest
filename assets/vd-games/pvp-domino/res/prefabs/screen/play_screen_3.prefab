@@ -2435,7 +2435,7 @@
         "__id__": 107
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 113
@@ -2452,8 +2452,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 9.818,
-      "y": -280.631,
+      "x": 542.393,
+      "y": 274.912,
       "z": 0
     },
     "_lrot": {
@@ -2539,8 +2539,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 200,
-      "height": 40
+      "width": 120,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2574,20 +2574,20 @@
       "b": 0,
       "a": 255
     },
-    "_string": "Back to Screen 1",
+    "_string": "Back to\nScreen 1",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 20,
     "_fontSize": 20,
     "_fontFamily": "Arial",
-    "_lineHeight": 40,
+    "_lineHeight": 30,
     "_overflow": 1,
     "_enableWrapText": false,
     "_font": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_isItalic": false,
-    "_isBold": false,
+    "_isBold": true,
     "_isUnderline": false,
     "_underlineHeight": 2,
     "_cacheMode": 0,
@@ -2623,8 +2623,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 200,
-      "height": 40
+      "width": 120,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2653,9 +2653,9 @@
     "_dstBlendFactor": 4,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 250,
+      "g": 140,
+      "b": 22,
       "a": 255
     },
     "_spriteFrame": {
@@ -3143,7 +3143,7 @@
         "__id__": 137
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 143
@@ -3160,8 +3160,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 4.857,
-      "y": -120.607,
+      "x": 542.434,
+      "y": 203.671,
       "z": 0
     },
     "_lrot": {
@@ -3247,8 +3247,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 300,
-      "height": 40
+      "width": 120,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3282,20 +3282,20 @@
       "b": 0,
       "a": 255
     },
-    "_string": "Show Table View",
+    "_string": "Show \nTable View",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 20,
     "_fontSize": 20,
     "_fontFamily": "Arial",
-    "_lineHeight": 40,
+    "_lineHeight": 30,
     "_overflow": 1,
     "_enableWrapText": false,
     "_font": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_isItalic": false,
-    "_isBold": false,
+    "_isBold": true,
     "_isUnderline": false,
     "_underlineHeight": 2,
     "_cacheMode": 0,
@@ -3331,8 +3331,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 400,
-      "height": 40
+      "width": 120,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3361,9 +3361,9 @@
     "_dstBlendFactor": 4,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 238,
+      "g": 134,
+      "b": 22,
       "a": 255
     },
     "_spriteFrame": {
@@ -3563,7 +3563,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": -543.319,
-      "y": 300.936,
+      "y": 263.663,
       "z": 0
     },
     "_lrot": {
@@ -3692,7 +3692,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": -540.596,
-      "y": 234.213,
+      "y": 195.908,
       "z": 0
     },
     "_lrot": {
@@ -3768,8 +3768,8 @@
     "_string": "",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
-    "_actualFontSize": 25,
-    "_fontSize": 25,
+    "_actualFontSize": 20,
+    "_fontSize": 20,
     "_fontFamily": "Arial",
     "_lineHeight": 25,
     "_overflow": 0,
@@ -3821,7 +3821,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": -543.32,
-      "y": 194.723,
+      "y": 171.562,
       "z": 0
     },
     "_lrot": {
@@ -3897,8 +3897,8 @@
     "_string": "",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
+    "_actualFontSize": 20,
+    "_fontSize": 20,
     "_fontFamily": "Arial",
     "_lineHeight": 30,
     "_overflow": 0,
