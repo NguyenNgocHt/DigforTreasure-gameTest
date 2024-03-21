@@ -3,6 +3,7 @@ import { mock_treasureOpen } from "./../../../../vd-mock/mock_config";
 export type DT_INIT_TREASURE_MODEL = {
   id: number;
   listTreasureStatus: number[];
+  treasureCurrentNotOpen: number;
 };
 export type DT_PLAYER_INFO_MODEL = {
   id: number;

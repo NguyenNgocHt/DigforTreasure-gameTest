@@ -1,4 +1,5 @@
-import { DT_listRandomLocationTreasure_OP, DT_sendResultOnclickingThePiece } from "./../model/DT_outputDataFull";
+import { DT_convertDataModel } from "./../model/DT_convertDataModel";
+import { DT_initTreaDataFull, DT_listRandomLocationTreasure_OP, DT_sendResultOnclickingThePiece } from "./../model/DT_outputDataFull";
 import { DT_PLAYER_INFO_MODEL } from "./../model/DT_outputDataModel";
 import { DT_commandID_OP } from "./../network/DT_networkDefine";
 import { VDScrollBarDirection } from "./../../../../vd-framework/ui/VDScrollBar";
@@ -7,14 +8,15 @@ import { StartScene } from "./../../../../vd-boot/StartScene";
 import { VDEventListener } from "../../../../vd-framework/common/VDEventListener";
 import { _decorator, Component, Node, director } from "cc";
 import { DT_GAME_STATUS_EVENT, DT_commanID_IP } from "../network/DT_networkDefine";
-import { IP_GET_TREASURE_RANDOM_LIST, IP_SEND_INDEX_ONCLICK_PIECE, PALYER_NAME_DATA } from "../model/DT_inputDataModel";
+import { IP_GET_LIST_TREASURE_MAP, IP_GET_TREASURE_RANDOM_LIST, IP_SEND_INDEX_ONCLICK_PIECE, PALYER_NAME_DATA } from "../model/DT_inputDataModel";
 import { DT_playerInfoDataFull } from "../model/DT_outputDataFull";
 import { ValueType } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("DigTreasureControler")
 export class DigTreasureControler extends Component {
-  MONEY_IN_TREASURE: number[] = [];
+  MONEY_WIN_IN_TREASURE: number[] = [];
+  MONEY_LOSE_IN_TREASURE: number[] = [];
   private static _instance: DigTreasureControler = null!;
   public static get instance(): DigTreasureControler {
     if (this._instance == null) {
@@ -27,16 +29,25 @@ export class DigTreasureControler extends Component {
   private playerInfor_localStogare: DT_PLAYER_INFO_MODEL = null;
   private op_listRandomLocationTreasure: DT_listRandomLocationTreasure_OP = null;
   private op_resultOnclickPiece: DT_sendResultOnclickingThePiece = null;
+  private op_listTreasureOpenInMap: DT_initTreaDataFull = null;
   private listRandom: number[] = [];
   private countOnclickPiece: number = 0;
   private digTreasureCurrentIndex = 0;
+  private treasureNumber: number = 8;
+  private pieceNumber: number = 9;
   initListMoneyInTreasure() {
-    let valueMoney = 1000;
+    let valueMoney_win_origin = 1000;
+    let valueMoney_lose_origin = 100;
     for (let i = 0; i < 8; i++) {
-      valueMoney = valueMoney * (i + 1);
-      this.MONEY_IN_TREASURE.push(valueMoney);
+      valueMoney_win_origin = valueMoney_win_origin * (i + 1);
+      this.MONEY_WIN_IN_TREASURE.push(valueMoney_win_origin);
     }
-    console.log("value money list", this.MONEY_IN_TREASURE);
+    console.log("value money win list", this.MONEY_WIN_IN_TREASURE);
+    for (let i = 0; i < 8; i++) {
+      valueMoney_lose_origin = valueMoney_lose_origin * (i + 1);
+      this.MONEY_LOSE_IN_TREASURE.push(valueMoney_lose_origin);
+    }
+    console.log("value money lose list", this.MONEY_LOSE_IN_TREASURE);
   }
   RegisterEvent() {
     VDEventListener.on(DT_GAME_STATUS_EVENT.CLIENT_TO_SEVER, this.getDataFromCLient.bind(this));
@@ -46,6 +57,9 @@ export class DigTreasureControler extends Component {
     let commanID = data.id;
     let dataJson = data;
     switch (commanID) {
+      case DT_commanID_IP.GET_LIST_TREASURE:
+        this.InitTreasure(dataJson);
+        break;
       case DT_commanID_IP.PLAYER_NAME_ID:
         this.setAvatarID(dataJson);
         break;
@@ -65,6 +79,7 @@ export class DigTreasureControler extends Component {
         A_ID: this.RandomNumber(1, 12),
         M: 1000,
       };
+      VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.SEVER_TO_CLIENT, this.userNameData);
     } else {
       this.playerInfor_localStogare = JSON.parse(localStorage.getItem("PLAYER-INFO"));
       this.userNameData = {
@@ -73,9 +88,9 @@ export class DigTreasureControler extends Component {
         A_ID: this.playerInfor_localStogare.avatarID,
         M: this.playerInfor_localStogare.money,
       };
+      VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.SEVER_TO_CLIENT, this.userNameData);
     }
     console.log("user name data", this.userNameData);
-    VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.SEVER_TO_CLIENT, this.userNameData);
   }
   setRandomListDigLocation(data: IP_GET_TREASURE_RANDOM_LIST) {
     this.digTreasureCurrentIndex = data.TreasureIndex;
@@ -105,7 +120,7 @@ export class DigTreasureControler extends Component {
               I: data.indexInArr,
               C: this.countOnclickPiece,
               R_OnClick: true,
-              M: this.MONEY_IN_TREASURE[this.digTreasureCurrentIndex],
+              M: this.MONEY_WIN_IN_TREASURE[this.digTreasureCurrentIndex],
             };
             console.log("op_resultOnclickPiece", this.op_resultOnclickPiece);
             VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.SEVER_TO_CLIENT, this.op_resultOnclickPiece);
@@ -115,7 +130,7 @@ export class DigTreasureControler extends Component {
               I: data.indexInArr,
               C: this.countOnclickPiece,
               R_OnClick: false,
-              M: 0,
+              M: this.MONEY_LOSE_IN_TREASURE[this.digTreasureCurrentIndex],
             };
             console.log("op_resultOnclickPiece", this.op_resultOnclickPiece);
             VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.SEVER_TO_CLIENT, this.op_resultOnclickPiece);
@@ -131,9 +146,10 @@ export class DigTreasureControler extends Component {
               I: data.indexInArr,
               C: this.countOnclickPiece,
               R_OnClick: true,
-              M: this.MONEY_IN_TREASURE[this.digTreasureCurrentIndex],
+              M: this.MONEY_WIN_IN_TREASURE[this.digTreasureCurrentIndex],
             };
             console.log("op_resultOnclickPiece", this.op_resultOnclickPiece);
+            this.countOnclickPiece = 0;
             VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.SEVER_TO_CLIENT, this.op_resultOnclickPiece);
           } else {
             console.log("chuc mung ban tim duoc qua boom");
@@ -157,7 +173,7 @@ export class DigTreasureControler extends Component {
   InitListRandom(randomNumber: number): number[] {
     let listRandom: number[];
     listRandom = [];
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < this.pieceNumber; i++) {
       if (i == randomNumber) {
         listRandom.push(1);
       } else {
@@ -169,9 +185,22 @@ export class DigTreasureControler extends Component {
   RandomNumber(minNumber: number, maxNumber: number): number {
     return Math.floor(Math.random() * maxNumber) + minNumber;
   }
-  public InitTreasure() {
-    let treasureData = mock_treasureOpen;
-    console.log("treasureData", treasureData);
-    VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.SEVER_TO_CLIENT, treasureData);
+  public InitTreasure(dataJson: IP_GET_LIST_TREASURE_MAP) {
+    let listTreasureOpen: number[];
+    listTreasureOpen = [];
+    let treasureCurrent = dataJson.treasureCurrent;
+    for (let i = 0; i < this.treasureNumber; i++) {
+      if (i <= treasureCurrent) {
+        listTreasureOpen.push(1);
+      } else {
+        listTreasureOpen.push(0);
+      }
+    }
+    this.op_listTreasureOpenInMap = {
+      ID: DT_commandID_OP.DT_INIT_TREASURE_START_GAME,
+      L: listTreasureOpen,
+      TC: treasureCurrent,
+    };
+    VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.SEVER_TO_CLIENT, this.op_listTreasureOpenInMap);
   }
 }

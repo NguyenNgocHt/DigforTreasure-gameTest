@@ -1,6 +1,7 @@
 export type DT_initTreaDataFull = {
   ID: number;
   L: number[];
+  TC: number; // treasure current not open
 };
 export type DT_playerInfoDataFull = {
   ID: number;
@@ -18,4 +19,8 @@ export type DT_sendResultOnclickingThePiece = {
   C: number; //count onclick the piece
   R_OnClick: boolean; //result dig treasure
   M: number; //money in treasure
+};
+export type DT_sendListTreasureMap = {
+  ID: number;
+  L: number[];
 };

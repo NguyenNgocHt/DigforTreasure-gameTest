@@ -1,5 +1,6 @@
 export const DT_path = {
   GET_PLAYER_NAME_POPUP: "res/prefabs/popup/getNamePlayer",
+  NOTY_POPUP: "res/prefabs/popup/popup_notify",
   GET_AVATAR_GROUP: "images/avatarGroup/avatar",
   BG_POPUP: "res/images/bgr/bg_popup",
   AVATAR_TEXTURE_PACKER: "res/images/texturePacker/avatar/avatarGroup",

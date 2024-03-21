@@ -9,6 +9,7 @@ export class DT_convertDataModel {
     const treasure_data: DT_INIT_TREASURE_MODEL = {
       id: treasureData.ID,
       listTreasureStatus: treasureData.L,
+      treasureCurrentNotOpen: treasureData.TC,
     };
     return treasure_data;
   }

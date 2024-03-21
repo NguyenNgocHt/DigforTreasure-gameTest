@@ -1,3 +1,4 @@
+import { pieceControler } from "./../pieceControler";
 import { instantiate } from "cc";
 import { Prefab } from "cc";
 import { _decorator, Component, Node } from "cc";
@@ -73,10 +74,17 @@ export class poolControler extends Component {
     if (iconNode.parent) {
       iconNode.removeFromParent();
     }
+    this.setIconPieceToValueOrigin(iconNode);
     this.poolPieceList.push(iconNode);
     this.pool_piece_treasure_group.addChild(iconNode);
     iconNode.setPosition(0, 0);
     iconNode.active = false;
+  }
+  setIconPieceToValueOrigin(iconNode) {
+    let pieceControler = iconNode.getComponent("pieceControler") as pieceControler;
+    pieceControler.on_off_imageNode(true);
+    pieceControler.setPiceIndex(-1, -1);
+    pieceControler.resetAllValueToOrigin();
   }
   update(deltaTime: number) {}
 }

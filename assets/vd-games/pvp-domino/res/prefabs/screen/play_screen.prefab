@@ -411,8 +411,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 37.364,
-      "y": -297.242,
+      "x": 0,
+      "y": -308.136,
       "z": 0
     },
     "_lrot": {
@@ -536,8 +536,8 @@
     "_string": "game play",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
-    "_actualFontSize": 20,
-    "_fontSize": 20,
+    "_actualFontSize": 30,
+    "_fontSize": 30,
     "_fontFamily": "Arial",
     "_lineHeight": 40,
     "_overflow": 1,
@@ -583,7 +583,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 200,
-      "height": 40
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -612,9 +612,9 @@
     "_dstBlendFactor": 4,
     "_color": {
       "__type__": "cc.Color",
-      "r": 236,
-      "g": 143,
-      "b": 143,
+      "r": 230,
+      "g": 31,
+      "b": 31,
       "a": 255
     },
     "_spriteFrame": {
@@ -739,7 +739,7 @@
     "_left": 0,
     "_right": 0,
     "_top": 0,
-    "_bottom": 42.75799999999998,
+    "_bottom": 21.863999999999976,
     "_horizontalCenter": 0,
     "_verticalCenter": 0,
     "_isAbsLeft": true,

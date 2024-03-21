@@ -11,3 +11,7 @@ export type IP_SEND_INDEX_ONCLICK_PIECE = {
   pieceIndex: number;
   indexInArr: number;
 };
+export type IP_GET_LIST_TREASURE_MAP = {
+  id: number;
+  treasureCurrent: number;
+};

@@ -12,6 +12,7 @@ import { mock_config } from "../../../../vd-mock/mock_config";
 import { dm_Config } from "../common/dm_Config";
 import { dm_Director } from "../common/dm_Director";
 import { dm_PlayScreen } from "./dm_PlayScreen";
+import { dm_PopupNotify } from "../popups/dm_PopupNotify";
 const { ccclass, property } = _decorator;
 
 @ccclass("dm_LoadingScreen")
@@ -36,11 +37,7 @@ export class dm_LoadingScreen extends Component {
 
     if (sys.isNative) this._items = this._items.concat(soundDirs);
 
-    this._items = this._items
-      // .concat(soundDirs)
-      .concat(imageDirs)
-      .concat(prefabDirs)
-      .concat(prefabs);
+    this._items = this._items.concat(soundDirs).concat(imageDirs).concat(prefabDirs).concat(prefabs);
 
     this._setVersion(dm_Config.versionGame);
   }
@@ -171,17 +168,17 @@ export class dm_LoadingScreen extends Component {
     VDScreenManager.instance.showPopupFromPrefabName(
       "res/prefabs/popup/popup_notify",
       (popup: VDBasePopup) => {
-        // let popupDisplay = popup as DomiPopupNotify;
-        // popupDisplay.setupPopup(message, [
-        //     () => {
-        //         VDScreenManager.instance.hidePopup(true);
-        //         let percent = 1.0 / (this._items.length + 1);
-        //         this._loadAsset(0, percent);
-        //     },
-        //     () => {
-        //         VDScreenManager.instance.hidePopup(true);
-        //     }
-        // ]);
+        let popupDisplay = popup as dm_PopupNotify;
+        popupDisplay.setupPopup(message, [
+          () => {
+            VDScreenManager.instance.hidePopup(true);
+            let percent = 1.0 / (this._items.length + 1);
+            this._loadAsset(0, percent);
+          },
+          () => {
+            VDScreenManager.instance.hidePopup(true);
+          },
+        ]);
       },
       true,
       true,
