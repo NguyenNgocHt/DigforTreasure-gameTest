@@ -11,6 +11,7 @@ import { SpriteAtlas } from "cc";
 import { Label } from "cc";
 import { Vec2 } from "cc";
 import { Vec3 } from "cc";
+import { SpriteFrame } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("pieceControler")
@@ -47,6 +48,9 @@ export class pieceControler extends Component {
     this.isLockOnclick = false;
     this.pointBonus.string = "";
     this.pointBonus.node.setScale(1, 1, 1);
+  }
+  setSpriteFramePiece(SpriteFrame: SpriteFrame) {
+    this.imageNode.getComponent(Sprite).spriteFrame = SpriteFrame;
   }
   onClickToPiece() {
     if (!this.isLockOnclick) {

@@ -188,10 +188,7 @@
       "b": 255,
       "a": 255
     },
-    "_spriteFrame": {
-      "__uuid__": "29303d53-3d61-4f74-86f0-a9a4a01b24aa@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_fillType": 0,
     "_sizeMode": 0,
@@ -1662,6 +1659,9 @@
     },
     "showPointLose": {
       "__id__": 64
+    },
+    "BG_popup1": {
+      "__id__": 5
     },
     "_id": ""
   },

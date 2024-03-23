@@ -4,6 +4,7 @@ export type DT_initTreaDataFull = {
   ID: number;
   L: number[];
   TC: number; // treasure current not open
+  M: number; //map current
 };
 export type DT_playerInfoDataFull = {
   ID: number;
@@ -14,6 +15,8 @@ export type DT_playerInfoDataFull = {
 export type DT_listRandomLocationTreasure_OP = {
   ID: number;
   LT: number[];
+  MR: number;
+  RC: number; // value row and column
 };
 export type DT_sendResultOnclickingThePiece = {
   ID: number;

@@ -62,6 +62,7 @@ export class dm_Director extends Component {
   }
   //input to sever
   private playerNameDataModel: PALYER_NAME_DATA = null;
+  private indexMapCurrent = 1;
   start() {
     // this.RegisterEvent();
   }
@@ -100,21 +101,18 @@ export class dm_Director extends Component {
     console.log("listLocationTreasure", this.listLocationTreasure);
     this.scheduleOnce(function () {
       if (this.pool_controler) {
-        this.pool_controler.showConectFromDirector();
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < listRandomLocation.valueRowAndColumn * listRandomLocation.valueRowAndColumn; i++) {
           let iconNode = this.pool_controler.GetIconNodePiece();
           if (iconNode) {
             iconNode.active = true;
             listIconNode.push(iconNode);
           }
         }
-        console.log("listNode", listIconNode);
       }
       if (this.dm_popup_1) {
-        this.dm_popup_1.showLogConect();
         this.dm_popup_1.initTableTreasure(this.listLocationTreasure, listIconNode);
       }
-    }, 0.2);
+    }, 0.01);
   }
 
   setResultOnclickToPiece(data: DT_sendResultOnclickingThePiece_dataModel) {
@@ -158,6 +156,9 @@ export class dm_Director extends Component {
     if (this.homeScreen) {
       this.homeScreen.CallinitPlayerInfo();
     }
+  }
+  public setIndexMap(indexMap: number) {
+    this.indexMapCurrent = indexMap;
   }
   //send data to sever
   public sendPlayerNameData(playerName: string) {

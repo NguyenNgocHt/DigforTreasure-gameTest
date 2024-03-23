@@ -28,7 +28,16 @@ export class dm_LoadingScreen extends Component {
   onLoad() {
     let soundDirs = ["res/sounds/bgm/", "res/sounds/sfx/"];
 
-    let imageDirs = ["res/fonts/", "res/images/bgr/", "res/images/avatarGroup/", "res/images/texturePacker/avatar/", "res/images/texturePacker/boom/", "res/images/texturePacker/treasureGroup/"];
+    let imageDirs = [
+      "res/fonts/",
+      "res/images/bgr/",
+      "res/images/avatarGroup/",
+      "res/images/texturePacker/avatar/",
+      "res/images/texturePacker/boom/",
+      "res/images/texturePacker/treasureGroup/",
+      "res/images/treasureMap/",
+      "res/images/pieceTreasure/",
+    ];
 
     let prefabDirs = ["res/anims/prefabs/", "res/prefabs/popup/"];
 

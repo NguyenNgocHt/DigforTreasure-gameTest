@@ -16,6 +16,7 @@ const { ccclass, property } = _decorator;
 export class DigTreasureControler extends Component {
   MONEY_WIN_IN_TREASURE: number[] = [];
   MONEY_LOSE_IN_TREASURE: number[] = [];
+  LIST_INDEX_MAP: number[] = [];
   private static _instance: DigTreasureControler = null!;
   public static get instance(): DigTreasureControler {
     if (this._instance == null) {
@@ -38,6 +39,9 @@ export class DigTreasureControler extends Component {
   private treasureNumber: number = 8;
   private pieceNumber: number = 9;
   private numberUsers: number = 50;
+  private numberMap: number = 3;
+  private indexMapCurrent = 0;
+  private valueRowAndColumn: number = 3;
   initListMoneyInTreasure() {
     let valueMoney_win_origin = 1000;
     let valueMoney_lose_origin = 600;
@@ -51,6 +55,11 @@ export class DigTreasureControler extends Component {
       this.MONEY_LOSE_IN_TREASURE.push(valueMoney_lose_origin);
     }
     console.log("value money lose list", this.MONEY_LOSE_IN_TREASURE);
+    for (let i = 0; i < this.numberMap; i++) {
+      let indexMap = i + 1;
+      this.LIST_INDEX_MAP.push(indexMap);
+    }
+    console.log("list index map", this.LIST_INDEX_MAP);
   }
   initPlayerOtherInfo() {
     if (localStorage.getItem(DT_KEY_WORD.LIST_GAME_PLAYERS_INFO) == null) {
@@ -162,13 +171,15 @@ export class DigTreasureControler extends Component {
     console.log("digtreasue current index", this.digTreasureCurrentIndex);
     this.listRandom = [];
     console.log("data", data);
-    let randomLocationWithTreasure = DT_Global.instance.RandomNumber(0, 8);
-    let listRandom = DT_Global.instance.InitListRandom(randomLocationWithTreasure, this.pieceNumber);
+    let randomLocationWithTreasure = DT_Global.instance.RandomNumber(0, this.valueRowAndColumn * this.valueRowAndColumn - 1);
+    let listRandom = DT_Global.instance.InitListRandom(randomLocationWithTreasure, this.valueRowAndColumn * this.valueRowAndColumn);
     this.listRandom = listRandom;
     console.log("list random", listRandom);
     this.op_listRandomLocationTreasure = {
       ID: DT_commandID_OP.DT_LIST_RANDOM_LOCATION_TREASURE,
       LT: listRandom,
+      MR: this.indexMapCurrent,
+      RC: this.valueRowAndColumn,
     };
     VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.SEVER_TO_CLIENT, JSON.stringify(this.op_listRandomLocationTreasure));
   }
@@ -237,8 +248,11 @@ export class DigTreasureControler extends Component {
     }
   }
   public InitTreasure(dataJson: IP_GET_LIST_TREASURE_MAP) {
+    console.log("data init treasure", dataJson);
     let listTreasureOpen: number[];
     listTreasureOpen = [];
+    this.indexMapCurrent = dataJson.indexMapCurrent;
+    this.valueRowAndColumn = dataJson.valueRowAndColumn;
     let treasureCurrent = dataJson.treasureCurrent;
     for (let i = 0; i < this.treasureNumber; i++) {
       if (i <= treasureCurrent) {
@@ -251,6 +265,7 @@ export class DigTreasureControler extends Component {
       ID: DT_commandID_OP.DT_INIT_TREASURE_START_GAME,
       L: listTreasureOpen,
       TC: treasureCurrent,
+      M: dataJson.indexMapCurrent,
     };
     VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.SEVER_TO_CLIENT, JSON.stringify(this.op_listTreasureOpenInMap));
   }

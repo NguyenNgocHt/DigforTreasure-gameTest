@@ -16,6 +16,7 @@ import { DT_KEY_WORD, DT_MESENGER, DT_path } from "../common/DT_define";
 import { dm_PopupNotify } from "../popups/dm_PopupNotify";
 import { DT_listTreasureMap_LocalStorage } from "../common/dm_Config";
 import { JsonAsset } from "cc";
+import { SpriteFrame } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("dm_PlayScreen3")
@@ -30,6 +31,16 @@ export class dm_PlayScreen3 extends VDBaseScreen {
   userName: Label = null;
   @property(Label)
   coin: Label = null;
+  @property(Node)
+  treasureGroup: Node = null;
+  @property(Node)
+  listPosMap1: Node = null;
+  @property(Node)
+  listPosMap2: Node = null;
+  @property(Node)
+  listPosMap3: Node = null;
+  @property(Node)
+  BG_group: Node = null;
   private treasureData: DT_INIT_TREASURE_MODEL = null;
   private IP_getTreasureRandomList: IP_GET_TREASURE_RANDOM_LIST = null;
   playerInfor_localStorage: DT_PLAYER_INFO_MODEL = null;
@@ -38,7 +49,10 @@ export class dm_PlayScreen3 extends VDBaseScreen {
   resultOnclickPiece: DT_sendResultOnclickingThePiece_dataModel = null;
   getListTreasureMap: IP_GET_LIST_TREASURE_MAP = null;
   getRecordPlayersList: IP_GET_RECORD_PLAYERS = null;
+  listPosTreasure: Node[] = [];
   treasureOpen: number = 0;
+  indexMapCurrent: number = 1;
+  ValueRowAndColumn: number = 3;
   private grayColor = color(128, 128, 128);
   private whiteColor = color(255, 255, 255);
   start() {
@@ -87,17 +101,28 @@ export class dm_PlayScreen3 extends VDBaseScreen {
       this.getListTreasureMap = {
         id: DT_commanID_IP.GET_LIST_TREASURE,
         treasureCurrent: this.treasureOpen,
+        indexMapCurrent: this.indexMapCurrent,
+        valueRowAndColumn: this.ValueRowAndColumn,
       };
       dm_Director.instance.sendDataToSever(this.getListTreasureMap);
-      this.setDataListTreasureInMap_localStorage(this.treasureOpen);
+      this.setDataListTreasureInMap_localStorage(this.treasureOpen, this.indexMapCurrent, this.ValueRowAndColumn);
     } else {
       this.listTreasureMap_localStorage = JSON.parse(localStorage.getItem(DT_KEY_WORD.LIST_TREASURE_IN_MAP));
       if (this.listTreasureMap_localStorage) {
+        console.log("list treasure in local", this.listTreasureMap_localStorage);
         this.treasureOpen = this.listTreasureMap_localStorage.indexTreasureCurrentOpen;
+        this.indexMapCurrent = this.listTreasureMap_localStorage.indexMapCurrent;
+        this.ValueRowAndColumn = this.listTreasureMap_localStorage.valueRowAndColumn;
         console.log("treasureOpen", this.treasureOpen);
         if (this.treasureOpen >= 8) {
           this.treasureOpen = 0;
-          this.setDataListTreasureInMap_localStorage(this.treasureOpen);
+          this.indexMapCurrent++;
+          this.ValueRowAndColumn++;
+          if (this.indexMapCurrent == 4) {
+            this.indexMapCurrent = 1;
+            this.ValueRowAndColumn = 3;
+          }
+          this.setDataListTreasureInMap_localStorage(this.treasureOpen, this.indexMapCurrent, this.ValueRowAndColumn);
           this.scheduleOnce(function () {
             this.showPopupMessage(DT_MESENGER.END_MAP);
           }, 7);
@@ -105,6 +130,8 @@ export class dm_PlayScreen3 extends VDBaseScreen {
           this.getListTreasureMap = {
             id: DT_commanID_IP.GET_LIST_TREASURE,
             treasureCurrent: this.treasureOpen,
+            indexMapCurrent: this.indexMapCurrent,
+            valueRowAndColumn: this.ValueRowAndColumn,
           };
           dm_Director.instance.sendDataToSever(this.getListTreasureMap);
         }
@@ -119,7 +146,7 @@ export class dm_PlayScreen3 extends VDBaseScreen {
   }
 
   InitTreasure(data: DT_INIT_TREASURE_MODEL) {
-    console.log(data);
+    console.log("data map", data);
     this.treasureData = data;
     let listIndexTreasure = this.treasureData.listTreasureStatus;
     let childTreasure = this.TreasureGroup.children;
@@ -137,11 +164,40 @@ export class dm_PlayScreen3 extends VDBaseScreen {
         childTreasure[i].getComponent(Sprite).color = this.grayColor;
       }
     }
+    this.initImageMap(this.treasureData.mapCurrent);
+    this.initMapCurrent(this.treasureData.mapCurrent);
   }
-
-  setDataListTreasureInMap_localStorage(indextreasureCurrentOpen: number) {
+  initImageMap(indexMap: number) {
+    let imagesPath = DT_path.SPRITE_MAP + "map" + indexMap.toString() + "/spriteFrame";
+    console.log("images map path", imagesPath);
+    let spriteFrame_map = VDScreenManager.instance.assetBundle.get(imagesPath, SpriteFrame);
+    console.log("spriteFrameMap", spriteFrame_map);
+    let spriteMap = this.BG_group.getComponent(Sprite);
+    spriteMap.spriteFrame = spriteFrame_map;
+  }
+  initMapCurrent(indexMap: number) {
+    let listPosTreasure;
+    let listTreasure;
+    let childsBG_Group = this.BG_group.children;
+    for (let i = 0; i < childsBG_Group.length; i++) {
+      let childNodeName = "posGroupMap" + indexMap.toString();
+      if (childsBG_Group[i].name == childNodeName) {
+        console.log("child name", childsBG_Group[i].name);
+        listPosTreasure = childsBG_Group[i].children;
+      }
+      if (childsBG_Group[i].name == "treasureGroup") {
+        listTreasure = childsBG_Group[i].children;
+      }
+    }
+    for (let i = 0; i < listPosTreasure.length; i++) {
+      listTreasure[i].setWorldPosition(listPosTreasure[i].getWorldPosition());
+    }
+  }
+  setDataListTreasureInMap_localStorage(indextreasureCurrentOpen: number, indexMapCurrent: number, valueRowAndColumn: number) {
     this.listTreasureMap_localStorage = {
       indexTreasureCurrentOpen: indextreasureCurrentOpen,
+      indexMapCurrent: indexMapCurrent,
+      valueRowAndColumn: valueRowAndColumn,
     };
     let dataStringIfly = JSON.stringify(this.listTreasureMap_localStorage);
     localStorage.setItem(DT_KEY_WORD.LIST_TREASURE_IN_MAP, dataStringIfly);
@@ -186,7 +242,7 @@ export class dm_PlayScreen3 extends VDBaseScreen {
       this.sendDataToSever_getRecordPlayers();
     } else if (this.resultOnclickPiece.money > 0 && this.resultOnclickPiece.resultOnClick) {
       this.treasureOpen++;
-      this.setDataListTreasureInMap_localStorage(this.treasureOpen);
+      this.setDataListTreasureInMap_localStorage(this.treasureOpen, this.indexMapCurrent, this.ValueRowAndColumn);
       this.playerInfor_localStorage = JSON.parse(localStorage.getItem(DT_KEY_WORD.PLAYER_INFO));
       clonePlayerInfo = this.playerInfor_localStorage;
       let coinCurrent = clonePlayerInfo.money + this.resultOnclickPiece.money;
@@ -217,7 +273,8 @@ export class dm_PlayScreen3 extends VDBaseScreen {
         popupDisplay.setupPopup(message, [
           () => {
             VDScreenManager.instance.hidePopup(true);
-            this.onClickBtnBackToScreen1();
+            this.sendDataToSever_GetTreasureInMap();
+            dm_Director.instance.setIndexMap(this.indexMapCurrent);
           },
           () => {
             VDScreenManager.instance.hidePopup(true);

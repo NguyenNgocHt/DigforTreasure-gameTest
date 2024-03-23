@@ -15,6 +15,8 @@ export const dm_Config: dm_ConfigType = {
 };
 export type DT_listTreasureMap_LocalStorage = {
   indexTreasureCurrentOpen: number;
+  indexMapCurrent: number;
+  valueRowAndColumn: number;
 };
 export type DT_playersInfo = {
   userName: string;

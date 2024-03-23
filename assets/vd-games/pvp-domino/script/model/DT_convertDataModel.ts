@@ -10,6 +10,7 @@ export class DT_convertDataModel {
       id: treasureData.ID,
       listTreasureStatus: treasureData.L,
       treasureCurrentNotOpen: treasureData.TC,
+      mapCurrent: treasureData.M,
     };
     return treasure_data;
   }
@@ -26,6 +27,8 @@ export class DT_convertDataModel {
     const listRandom_Location: DT_listRandomLocationTreasure_dataModel = {
       id: listRandomLocation.ID,
       listRandomLocationTreasure: listRandomLocation.LT,
+      indexMapCurrent: listRandomLocation.MR,
+      valueRowAndColumn: listRandomLocation.RC,
     };
     return listRandom_Location;
   }

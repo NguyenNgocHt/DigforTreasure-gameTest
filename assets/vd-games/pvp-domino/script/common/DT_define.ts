@@ -7,10 +7,12 @@ export const DT_path = {
   TREASURE_TEXTURE_PACKER: "res/images/texturePacker/treasureGroup/treasure",
   POPUP_NOTIFY: "res/prefabs/popup/popup_notify",
   POPUP_1: "res/prefabs/popup/popup_1",
+  SPRITE_MAP: "res/images/treasureMap/",
+  TREASURE_COLOR: "res/images/pieceTreasure/",
 };
 export const DT_KEY_WORD = {
   PLAYER_INFO: "PLAYER-INFO",
-  LIST_TREASURE_IN_MAP: "LIST-TREASURE-IN-MAP",
+  LIST_TREASURE_IN_MAP: "LIST-TREASURE-IN-MAP-2",
   LIST_GAME_PLAYERS_INFO: "LIST_GAME_PLAYERS_INFO",
 };
 export const DT_MESENGER = {
