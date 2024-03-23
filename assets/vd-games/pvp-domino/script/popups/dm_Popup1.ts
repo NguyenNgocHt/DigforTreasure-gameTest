@@ -1,18 +1,19 @@
+import { audioControler } from "./../controler/audioControler";
 import { _decorator, Node, Vec3, tween, SpriteFrame, Sprite } from "cc";
 import VDBasePopup from "../../../../vd-framework/ui/VDBasePopup";
 import { dm_Director } from "../common/dm_Director";
 import { DT_listRandomLocationTreasure_dataModel, DT_sendResultOnclickingThePiece_dataModel } from "../model/DT_outputDataModel";
 import { pieceControler } from "../controler/pieceControler";
-import { DigTreasureControler } from "../common/DigTreasureControler";
 import { Label } from "cc";
 import { DT_Global } from "../common/DT_Global";
 import { DT_path } from "../common/DT_define";
 import VDScreenManager from "../../../../vd-framework/ui/VDScreenManager";
-import { NodeEventType } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("dm_Popup1")
 export class dm_Popup1 extends VDBasePopup {
+  @property(audioControler)
+  audioPlay: audioControler = null;
   @property(Node)
   PosStart: Node = null;
   @property(Node)
@@ -31,9 +32,11 @@ export class dm_Popup1 extends VDBasePopup {
   start() {
     dm_Director.instance.dm_popup_1 = this;
   }
+
   showLogConect() {
     console.log("Da ket noi ok");
   }
+
   initTableTreasure(data: DT_listRandomLocationTreasure_dataModel, listNode: Node[]) {
     this.listIconNode = [];
     let listIconNode = listNode;
@@ -81,6 +84,7 @@ export class dm_Popup1 extends VDBasePopup {
       }
     }
   }
+
   showResultOnClickToPiece(data: DT_sendResultOnclickingThePiece_dataModel) {
     console.log(data);
     this.resultOnclickPiece = {
@@ -101,10 +105,12 @@ export class dm_Popup1 extends VDBasePopup {
         let pieceControler = this.listIconNode[i].getComponent("pieceControler") as pieceControler;
         if (i == this.resultOnclickPiece.indexInArr) {
           pieceControler.showEffectTreasureOpen(this.resultOnclickPiece.money);
+          this.audioPlay.winSound();
         } else {
           pieceControler.LockOnClick_on_off(true);
           this.scheduleOnce(function () {
             pieceControler.showEffectBoom();
+            this.audioPlay.onClickEffectBoom();
           }, DT_Global.instance.RandomNumber(200, 300) / 100);
         }
       }
@@ -121,10 +127,12 @@ export class dm_Popup1 extends VDBasePopup {
         for (let i = 0; i < this.listIconNode.length; i++) {
           let pieceControler = this.listIconNode[i].getComponent("pieceControler") as pieceControler;
           if (i == this.resultOnclickPiece.indexInArr) {
+            this.audioPlay.onClickEffectBoom();
             pieceControler.showEffectBoom();
           } else {
             pieceControler.LockOnClick_on_off(true);
             this.scheduleOnce(function () {
+              this.audioPlay.onClickEffectBoom();
               pieceControler.showEffectBoom();
             }, DT_Global.instance.RandomNumber(10, 300) / 100);
           }
@@ -133,22 +141,26 @@ export class dm_Popup1 extends VDBasePopup {
         for (let i = 0; i < this.listIconNode.length; i++) {
           if (i == this.resultOnclickPiece.indexInArr) {
             let pieceControler = this.listIconNode[i].getComponent("pieceControler") as pieceControler;
+            this.audioPlay.onClickEffectBoom();
             pieceControler.showEffectBoom();
           }
         }
       }
     }
   }
+
   pushPoolPieceGroup() {
     for (let i = 0; i < this.listIconNode.length; i++) {
       dm_Director.instance.pushPoolPiece(this.listIconNode[i]);
     }
     this.pieceParent.removeAllChildren();
   }
+
   onClickBtnClose() {
     this.hide();
     this.finishedCallback && this.finishedCallback();
   }
+
   show_PointLose(coin: number) {
     this.showPointLose.string = "-" + coin.toString();
     tween(this.showPointLose.node)
@@ -162,15 +174,20 @@ export class dm_Popup1 extends VDBasePopup {
       })
       .start();
   }
+
   setMapPopup1(indexMap: number) {
     let imagesPath = DT_path.SPRITE_MAP + "map" + indexMap.toString() + "/spriteFrame";
     let spriteFrame_map = VDScreenManager.instance.assetBundle.get(imagesPath, SpriteFrame);
     this.BG_popup1.spriteFrame = spriteFrame_map;
   }
+
   setPieceColor(pieceNode: Node, indexMap: number) {
     let imagesPath = DT_path.TREASURE_COLOR + "piece" + indexMap.toString() + "/spriteFrame";
     let spriteFrame_piece = VDScreenManager.instance.assetBundle.get(imagesPath, SpriteFrame);
     let pieceControl = pieceNode.getComponent("pieceControler") as pieceControler;
     pieceControl.setSpriteFramePiece(spriteFrame_piece);
+  }
+  onClickButton_sound() {
+    this.audioPlay.onclickSound();
   }
 }

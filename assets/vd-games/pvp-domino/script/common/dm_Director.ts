@@ -160,6 +160,11 @@ export class dm_Director extends Component {
   public setIndexMap(indexMap: number) {
     this.indexMapCurrent = indexMap;
   }
+  onClickButton_sound() {
+    if (this.dm_popup_1) {
+      this.dm_popup_1.onClickButton_sound();
+    }
+  }
   //send data to sever
   public sendPlayerNameData(playerName: string) {
     this.playerNameDataModel = {

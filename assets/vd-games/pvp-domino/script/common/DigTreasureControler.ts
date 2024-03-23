@@ -42,6 +42,7 @@ export class DigTreasureControler extends Component {
   private numberMap: number = 3;
   private indexMapCurrent = 0;
   private valueRowAndColumn: number = 3;
+
   initListMoneyInTreasure() {
     let valueMoney_win_origin = 1000;
     let valueMoney_lose_origin = 600;
@@ -61,6 +62,7 @@ export class DigTreasureControler extends Component {
     }
     console.log("list index map", this.LIST_INDEX_MAP);
   }
+
   initPlayerOtherInfo() {
     if (localStorage.getItem(DT_KEY_WORD.LIST_GAME_PLAYERS_INFO) == null) {
       for (let i = 0; i < this.numberUsers; i++) {
@@ -81,8 +83,12 @@ export class DigTreasureControler extends Component {
       console.log(this.ListGamePlayers);
     }
   }
+
   RegisterEvent() {
     VDEventListener.on(DT_GAME_STATUS_EVENT.CLIENT_TO_SEVER, this.getDataFromCLient.bind(this));
+  }
+  OffEvent() {
+    VDEventListener.off(DT_GAME_STATUS_EVENT.CLIENT_TO_SEVER, this.getDataFromCLient.bind(this));
   }
   getDataFromCLient(data) {
     console.log("data", data);

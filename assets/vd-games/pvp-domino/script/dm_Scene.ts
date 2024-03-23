@@ -7,6 +7,7 @@ import { DT_eventListenner } from "./eventListener/DT_eventListenner";
 import { dm_Director } from "./common/dm_Director";
 import { dm_Config } from "./common/dm_Config";
 import { DT_sendDataToSever } from "./eventListener/DT_sendDataToSever";
+import { AudioSource } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("dm_Scene")
@@ -22,7 +23,6 @@ export class dm_Scene extends Component {
     let bundle = assetManager.getBundle("bundle_" + dm_Config.GAME_NAME);
     if (bundle) {
       this.node.addComponent(VDScreenManager);
-
       VDScreenManager.instance.assetBundle = bundle;
       VDScreenManager.instance.setupCommon();
 
@@ -43,5 +43,9 @@ export class dm_Scene extends Component {
   onDestroy() {
     VDAudioManager.instance.destroy();
     VDAsyncTaskMgr.instance.stop();
+    DigTreasureControler.instance.OffEvent();
+    DT_eventListenner.instance.offEvent();
+    DT_sendDataToSever.instance.offEvent();
+    dm_Director.instance.offEvent();
   }
 }

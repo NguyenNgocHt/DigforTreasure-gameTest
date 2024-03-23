@@ -1,4 +1,4 @@
-import { _decorator, Component, Node } from "cc";
+import { _decorator } from "cc";
 import { DT_initTreaDataFull, DT_listRandomLocationTreasure_OP, DT_playerInfoDataFull, DT_recordPlayersList, DT_sendResultOnclickingThePiece } from "./DT_outputDataFull";
 import { DT_INIT_TREASURE_MODEL, DT_listRandomLocationTreasure_dataModel, DT_PLAYER_INFO_MODEL, DT_recordPlayersList_dataModel, DT_sendResultOnclickingThePiece_dataModel } from "./DT_outputDataModel";
 const { ccclass, property } = _decorator;
@@ -14,6 +14,7 @@ export class DT_convertDataModel {
     };
     return treasure_data;
   }
+
   static buildInitPlayerInfo_dataModel(playerData: DT_playerInfoDataFull): DT_PLAYER_INFO_MODEL {
     const player_data: DT_PLAYER_INFO_MODEL = {
       id: playerData.ID,
@@ -23,6 +24,7 @@ export class DT_convertDataModel {
     };
     return player_data;
   }
+
   static buildListRandomLocationTreasure_dataModel(listRandomLocation: DT_listRandomLocationTreasure_OP): DT_listRandomLocationTreasure_dataModel {
     const listRandom_Location: DT_listRandomLocationTreasure_dataModel = {
       id: listRandomLocation.ID,
@@ -32,6 +34,7 @@ export class DT_convertDataModel {
     };
     return listRandom_Location;
   }
+
   static buildResultOnclickPiece_dataModel(resultData: DT_sendResultOnclickingThePiece): DT_sendResultOnclickingThePiece_dataModel {
     const result_data: DT_sendResultOnclickingThePiece_dataModel = {
       id: resultData.ID,
@@ -42,6 +45,7 @@ export class DT_convertDataModel {
     };
     return result_data;
   }
+  
   static builPlayersInfo_DataModel(data: DT_recordPlayersList): DT_recordPlayersList_dataModel {
     const dataModel: DT_recordPlayersList_dataModel = {
       id: data.ID,

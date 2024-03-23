@@ -9,6 +9,7 @@ export const DT_path = {
   POPUP_1: "res/prefabs/popup/popup_1",
   SPRITE_MAP: "res/images/treasureMap/",
   TREASURE_COLOR: "res/images/pieceTreasure/",
+  POPUP_TABLE_VIEW: "res/prefabs/popup/popup_table_view",
 };
 export const DT_KEY_WORD = {
   PLAYER_INFO: "PLAYER-INFO",

@@ -18,9 +18,11 @@ export class DT_sendDataToSever extends Component {
   RegisterEvent() {
     VDEventListener.on(DT_GAME_STATUS_EVENT.DIRECTOR_TO_SEND_DATA_SEVER, this.convertDataAndSendToSever.bind(this));
   }
+
   offEvent() {
     VDEventListener.off(DT_GAME_STATUS_EVENT.DIRECTOR_TO_SEND_DATA_SEVER, this.convertDataAndSendToSever.bind(this));
   }
+
   convertDataAndSendToSever(data) {
     let msgData = JSON.stringify(data);
     VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.CLIENT_TO_SEVER, msgData);

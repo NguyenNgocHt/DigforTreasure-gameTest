@@ -29,6 +29,7 @@ export class dm_PlayScreen extends VDBaseScreen {
   onLoad() {
     this.CallinitPlayerInfo();
   }
+  
   CallinitPlayerInfo() {
     if (localStorage.getItem(DT_KEY_WORD.PLAYER_INFO) == null) {
       this.showGetNamePlayerPopup();
@@ -62,6 +63,7 @@ export class dm_PlayScreen extends VDBaseScreen {
       }
     });
   }
+
   showGetNamePlayerPopup() {
     VDScreenManager.instance.showPopupFromPrefabName(
       DT_path.GET_PLAYER_NAME_POPUP,
@@ -77,6 +79,7 @@ export class dm_PlayScreen extends VDBaseScreen {
       true
     );
   }
+
   initPlayerInfo(data: DT_PLAYER_INFO_MODEL) {
     this.playerInfor_localStogare = {
       id: data.id,
@@ -92,6 +95,7 @@ export class dm_PlayScreen extends VDBaseScreen {
     this.playerName.string = data.userName;
     this.coin.string = DT_Global.instance.formatNumberWithCommas(data.money);
   }
+
   setAvatar(avatarID: number) {
     let avatarName = "avatar" + avatarID.toString();
     let avatarGroupPath = DT_path.AVATAR_TEXTURE_PACKER;

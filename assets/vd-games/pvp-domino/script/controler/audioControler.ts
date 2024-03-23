@@ -1,35 +1,44 @@
+import { dm_PlayScreen } from "./../screens/dm_PlayScreen";
 import { _decorator, Component, Node } from "cc";
 import { VDAudioManager } from "../../../../vd-framework/audio/VDAudioManager";
+import { AudioSource } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("audioControler")
 export class audioControler extends Component {
-  //#region BGM
-  onClickPlayBGM() {
-    console.log("onclick play audio");
-    VDAudioManager.instance.playBGM("dm_bgm_main");
-  }
-  //#endregion
-  //#region Clip
+  private static _instance: audioControler = null!;
+  public static get instance(): audioControler {
+    if (this._instance == null) {
+      this._instance = new audioControler();
+    }
 
-  onClickPlayClip() {
-    VDAudioManager.instance.playClip("dm_bgm_win", false);
+    return this._instance;
   }
 
-  onClickStopClip() {
-    VDAudioManager.instance.stopClip();
-  }
-  //#endregion
+  @property(AudioSource)
+  boomSound: AudioSource = null;
+  @property(AudioSource)
+  onClick: AudioSource = null;
+  @property(AudioSource)
+  win: AudioSource = null;
+  @property(AudioSource)
+  soundTrack: AudioSource = null;
 
-  //#region Effect
-  onClickPlayEffect() {
-    VDAudioManager.instance.playEffect("dm_sfx_appear", false);
-  }
   onClickEffectBoom() {
-    VDAudioManager.instance.playEffect("sound_handbomb", false);
+    if (this.boomSound) {
+      this.boomSound.play();
+    }
   }
-  onClickStopEffect() {
-    VDAudioManager.instance.stopEffectByName("dm_sfx_appear");
+
+  soundTrackPlay() {
+    this.soundTrack.play();
   }
-  //#endregion
+
+  onclickSound() {
+    this.onClick.play();
+  }
+
+  winSound() {
+    this.win.play();
+  }
 }

@@ -9,7 +9,6 @@ import { DT_path } from "../common/DT_define";
 import VDScreenManager from "../../../../vd-framework/ui/VDScreenManager";
 import { SpriteAtlas } from "cc";
 import { Label } from "cc";
-import { Vec2 } from "cc";
 import { Vec3 } from "cc";
 import { SpriteFrame } from "cc";
 const { ccclass, property } = _decorator;
@@ -27,9 +26,11 @@ export class pieceControler extends Component {
   IP_sendIndexOnclickPiece: IP_SEND_INDEX_ONCLICK_PIECE = null;
   isLockOnclick: boolean = false;
   originIndex: number = 0;
+
   start() {
     this.getIndexOrigin();
   }
+
   getIndexOrigin() {
     this.originIndex = this.node.getSiblingIndex();
   }
@@ -37,23 +38,29 @@ export class pieceControler extends Component {
     this.pieceIndex = pieceIndex;
     this.indexInArr = indexInArr;
   }
+
   LockOnClick_on_off(status: boolean) {
     this.isLockOnclick = status;
   }
+
   on_off_imageNode(status: boolean) {
     this.imageNode.active = status;
   }
+
   resetAllValueToOrigin() {
     this.originIndex = 0;
     this.isLockOnclick = false;
     this.pointBonus.string = "";
     this.pointBonus.node.setScale(1, 1, 1);
   }
+
   setSpriteFramePiece(SpriteFrame: SpriteFrame) {
     this.imageNode.getComponent(Sprite).spriteFrame = SpriteFrame;
   }
+
   onClickToPiece() {
     if (!this.isLockOnclick) {
+      dm_Director.instance.onClickButton_sound();
       this.IP_sendIndexOnclickPiece = {
         id: DT_commanID_IP.SEND_INDEX_ONCLICK_PIECE,
         pieceIndex: this.pieceIndex,
@@ -63,7 +70,8 @@ export class pieceControler extends Component {
       dm_Director.instance.sendDataToSever(this.IP_sendIndexOnclickPiece);
     }
   }
-  public showEffectBoom() {
+
+  showEffectBoom() {
     let nodeBoom = new Node();
     this.node.addChild(nodeBoom);
     this.node.setSiblingIndex(999);
@@ -108,7 +116,8 @@ export class pieceControler extends Component {
       .repeat(20)
       .start();
   }
-  public showEffectTreasureOpen(pointBonus: number) {
+
+  showEffectTreasureOpen(pointBonus: number) {
     let nodeTreasure = new Node();
     this.node.addChild(nodeTreasure);
     this.node.setSiblingIndex(999);

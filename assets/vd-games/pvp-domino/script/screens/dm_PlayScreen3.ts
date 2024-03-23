@@ -55,12 +55,14 @@ export class dm_PlayScreen3 extends VDBaseScreen {
   ValueRowAndColumn: number = 3;
   private grayColor = color(128, 128, 128);
   private whiteColor = color(255, 255, 255);
+
   start() {
     this.scheduleOnce(function () {
       this.sendDataToSever_GetTreasureInMap();
       this.sendDataToSever_getRecordPlayers();
     }, 0.2);
   }
+
   onClickBtnBackToScreen1() {
     log(`onClickBtnBackToScreen1 1`);
     VDScreenManager.instance.popToRootScreen();
@@ -90,7 +92,7 @@ export class dm_PlayScreen3 extends VDBaseScreen {
   }
 
   onClickBtnShowTableView() {
-    VDScreenManager.instance.showPopupFromPrefabName("res/prefabs/popup/popup_table_view", (popup: VDBasePopup) => {}, true, true, true);
+    VDScreenManager.instance.showPopupFromPrefabName(DT_path.POPUP_TABLE_VIEW, (popup: VDBasePopup) => {}, true, true, true);
     this.scheduleOnce(function () {
       dm_Director.instance.initDataTableView_recordPlayers();
     }, 0.1);
@@ -138,6 +140,7 @@ export class dm_PlayScreen3 extends VDBaseScreen {
       }
     }
   }
+
   sendDataToSever_getRecordPlayers() {
     this.getRecordPlayersList = {
       id: DT_commanID_IP.GET_RECORD_PLAYERS,
@@ -167,6 +170,7 @@ export class dm_PlayScreen3 extends VDBaseScreen {
     this.initImageMap(this.treasureData.mapCurrent);
     this.initMapCurrent(this.treasureData.mapCurrent);
   }
+
   initImageMap(indexMap: number) {
     let imagesPath = DT_path.SPRITE_MAP + "map" + indexMap.toString() + "/spriteFrame";
     console.log("images map path", imagesPath);
@@ -175,6 +179,7 @@ export class dm_PlayScreen3 extends VDBaseScreen {
     let spriteMap = this.BG_group.getComponent(Sprite);
     spriteMap.spriteFrame = spriteFrame_map;
   }
+
   initMapCurrent(indexMap: number) {
     let listPosTreasure;
     let listTreasure;
@@ -193,6 +198,7 @@ export class dm_PlayScreen3 extends VDBaseScreen {
       listTreasure[i].setWorldPosition(listPosTreasure[i].getWorldPosition());
     }
   }
+
   setDataListTreasureInMap_localStorage(indextreasureCurrentOpen: number, indexMapCurrent: number, valueRowAndColumn: number) {
     this.listTreasureMap_localStorage = {
       indexTreasureCurrentOpen: indextreasureCurrentOpen,
