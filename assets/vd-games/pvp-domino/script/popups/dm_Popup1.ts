@@ -5,6 +5,7 @@ import { DT_listRandomLocationTreasure_dataModel, DT_sendResultOnclickingThePiec
 import { pieceControler } from "../controler/pieceControler";
 import { DigTreasureControler } from "../common/DigTreasureControler";
 import { Label } from "cc";
+import { DT_Global } from "../common/DT_Global";
 const { ccclass, property } = _decorator;
 
 @ccclass("dm_Popup1")
@@ -74,7 +75,7 @@ export class dm_Popup1 extends VDBasePopup {
           pieceControler.LockOnClick_on_off(true);
           this.scheduleOnce(function () {
             pieceControler.showEffectBoom();
-          }, DigTreasureControler.instance.RandomNumber(200, 300) / 100);
+          }, DT_Global.instance.RandomNumber(200, 300) / 100);
         }
       }
     } else {
@@ -95,7 +96,7 @@ export class dm_Popup1 extends VDBasePopup {
             pieceControler.LockOnClick_on_off(true);
             this.scheduleOnce(function () {
               pieceControler.showEffectBoom();
-            }, DigTreasureControler.instance.RandomNumber(10, 300) / 100);
+            }, DT_Global.instance.RandomNumber(10, 300) / 100);
           }
         }
       } else {

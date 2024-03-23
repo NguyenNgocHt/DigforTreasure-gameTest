@@ -1,5 +1,4 @@
-import { dragonBones } from "cc";
-import { mock_treasureOpen } from "./../../../../vd-mock/mock_config";
+import { DT_playersInfo } from "../common/dm_Config";
 export type DT_INIT_TREASURE_MODEL = {
   id: number;
   listTreasureStatus: number[];
@@ -21,4 +20,8 @@ export type DT_sendResultOnclickingThePiece_dataModel = {
   countOnClick: number;
   resultOnClick: boolean;
   money: number;
+};
+export type DT_recordPlayersList_dataModel = {
+  id: number;
+  ListPlayesInfo: DT_playersInfo[];
 };

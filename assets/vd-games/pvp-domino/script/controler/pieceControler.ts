@@ -56,7 +56,7 @@ export class pieceControler extends Component {
         indexInArr: this.indexInArr,
       };
       console.log("IP_sendIndexOnclickPiece", this.IP_sendIndexOnclickPiece);
-      dm_Director.instance.send_indexOnclickPiece(this.IP_sendIndexOnclickPiece);
+      dm_Director.instance.sendDataToSever(this.IP_sendIndexOnclickPiece);
     }
   }
   public showEffectBoom() {

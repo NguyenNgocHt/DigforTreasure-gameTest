@@ -15,3 +15,6 @@ export type IP_GET_LIST_TREASURE_MAP = {
   id: number;
   treasureCurrent: number;
 };
+export type IP_GET_RECORD_PLAYERS = {
+  id: number;
+};

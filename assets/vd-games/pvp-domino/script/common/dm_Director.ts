@@ -1,3 +1,4 @@
+import { DT_sendDataToSever } from "./../eventListener/DT_sendDataToSever";
 import { poolControler } from "./../controler/pool/poolControler";
 import { dm_Popup1 } from "./../popups/dm_Popup1";
 import { dm_PlayScreen3 } from "./../screens/dm_PlayScreen3";
@@ -5,9 +6,16 @@ import { _decorator, Component, Node } from "cc";
 import { dm_PlayScreen } from "../screens/dm_PlayScreen";
 import { VDEventListener } from "../../../../vd-framework/common/VDEventListener";
 import { DT_commanID_IP, DT_GAME_STATUS_EVENT } from "../network/DT_networkDefine";
-import { DT_INIT_TREASURE_MODEL, DT_listRandomLocationTreasure_dataModel, DT_PLAYER_INFO_MODEL, DT_sendResultOnclickingThePiece_dataModel } from "../model/DT_outputDataModel";
-import { IP_GET_LIST_TREASURE_MAP, IP_GET_TREASURE_RANDOM_LIST, IP_SEND_INDEX_ONCLICK_PIECE, PALYER_NAME_DATA } from "../model/DT_inputDataModel";
+import {
+  DT_INIT_TREASURE_MODEL,
+  DT_listRandomLocationTreasure_dataModel,
+  DT_PLAYER_INFO_MODEL,
+  DT_recordPlayersList_dataModel,
+  DT_sendResultOnclickingThePiece_dataModel,
+} from "../model/DT_outputDataModel";
+import { IP_GET_LIST_TREASURE_MAP, IP_GET_RECORD_PLAYERS, IP_GET_TREASURE_RANDOM_LIST, IP_SEND_INDEX_ONCLICK_PIECE, PALYER_NAME_DATA } from "../model/DT_inputDataModel";
 import { dm_PopupNotify } from "../popups/dm_PopupNotify";
+import { dm_TableView } from "../popups/table_view/dm_TableView";
 const { ccclass, property } = _decorator;
 
 @ccclass("dm_Director")
@@ -26,6 +34,7 @@ export class dm_Director extends Component {
   dm_popup_1: dm_Popup1 | null = null;
   pool_controler: poolControler | null = null;
   notifyPopup: dm_PopupNotify | null = null;
+  tableView: dm_TableView | null = null;
   //output from sever
   private initTreasure_dataModel: DT_INIT_TREASURE_MODEL = null;
   public get InitTreasure_dataModel(): DT_INIT_TREASURE_MODEL {
@@ -46,6 +55,11 @@ export class dm_Director extends Component {
   public get ResultOnClickToPiece(): DT_sendResultOnclickingThePiece_dataModel {
     return this.resultOnClickToPiece;
   }
+
+  private recordPlayesList: DT_recordPlayersList_dataModel = null;
+  public get RecordPlayesList(): DT_recordPlayersList_dataModel {
+    return this.recordPlayesList;
+  }
   //input to sever
   private playerNameDataModel: PALYER_NAME_DATA = null;
   start() {
@@ -56,6 +70,7 @@ export class dm_Director extends Component {
     VDEventListener.on(DT_GAME_STATUS_EVENT.INIT_PLAYER_INFO, this.setPlayerInfo.bind(this));
     VDEventListener.on(DT_GAME_STATUS_EVENT.GET_LIST_RANDOM_LOCATION_TREASURE, this.initLocationTreasure.bind(this));
     VDEventListener.on(DT_GAME_STATUS_EVENT.RESULT_ONCLICK_PIECE, this.setResultOnclickToPiece.bind(this));
+    VDEventListener.on(DT_GAME_STATUS_EVENT.RECORD_PLAYERS_DATA, this.getRecordPlayers.bind(this));
   }
 
   offEvent() {
@@ -63,6 +78,7 @@ export class dm_Director extends Component {
     VDEventListener.off(DT_GAME_STATUS_EVENT.INIT_PLAYER_INFO, this.setPlayerInfo.bind(this));
     VDEventListener.off(DT_GAME_STATUS_EVENT.GET_LIST_RANDOM_LOCATION_TREASURE, this.initLocationTreasure.bind(this));
     VDEventListener.off(DT_GAME_STATUS_EVENT.RESULT_ONCLICK_PIECE, this.setResultOnclickToPiece.bind(this));
+    VDEventListener.on(DT_GAME_STATUS_EVENT.RECORD_PLAYERS_DATA, this.getRecordPlayers.bind(this));
   }
   //get data from sever
   GetInitTreasureDataModel(initTreasureDataModel: DT_INIT_TREASURE_MODEL) {
@@ -110,6 +126,16 @@ export class dm_Director extends Component {
       this.playScreen.updateMoneyAfterWithResult(data);
     }
   }
+  getRecordPlayers(data: DT_recordPlayersList_dataModel) {
+    console.log("data da ve day director");
+    this.recordPlayesList = data;
+    console.log(this.recordPlayesList.ListPlayesInfo);
+  }
+  initDataTableView_recordPlayers() {
+    if (this.tableView) {
+      this.tableView.initListData(this.recordPlayesList.ListPlayesInfo);
+    }
+  }
   public InitTreasure() {
     console.log("initTreasure_dataModel", this.initTreasure_dataModel, this.playScreen);
     if (this.playScreen) {
@@ -128,6 +154,11 @@ export class dm_Director extends Component {
       this.pool_controler.PushIconPiece(poolNode);
     }
   }
+  public getPlayerInfoInHomeScreen() {
+    if (this.homeScreen) {
+      this.homeScreen.CallinitPlayerInfo();
+    }
+  }
   //send data to sever
   public sendPlayerNameData(playerName: string) {
     this.playerNameDataModel = {
@@ -135,16 +166,9 @@ export class dm_Director extends Component {
       playerName: playerName,
     };
     console.log("this.playerNameDataModel", this.playerNameDataModel);
-    VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.CLIENT_TO_SEVER, this.playerNameDataModel);
+    VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.DIRECTOR_TO_SEND_DATA_SEVER, this.playerNameDataModel);
   }
-  public sendGetListRandomTreasure(data: IP_GET_TREASURE_RANDOM_LIST) {
-    VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.CLIENT_TO_SEVER, data);
-  }
-  public send_indexOnclickPiece(data: IP_SEND_INDEX_ONCLICK_PIECE) {
-    VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.CLIENT_TO_SEVER, data);
-  }
-  public send_getListTreasureInMap(data: IP_GET_LIST_TREASURE_MAP) {
-    console.log("send get map");
-    VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.CLIENT_TO_SEVER, data);
+  public sendDataToSever(data) {
+    VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.DIRECTOR_TO_SEND_DATA_SEVER, data);
   }
 }

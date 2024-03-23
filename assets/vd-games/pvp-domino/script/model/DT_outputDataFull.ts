@@ -1,3 +1,5 @@
+import { DT_playersInfo } from "../common/dm_Config";
+
 export type DT_initTreaDataFull = {
   ID: number;
   L: number[];
@@ -23,4 +25,8 @@ export type DT_sendResultOnclickingThePiece = {
 export type DT_sendListTreasureMap = {
   ID: number;
   L: number[];
+};
+export type DT_recordPlayersList = {
+  ID: number;
+  L: DT_playersInfo[];
 };

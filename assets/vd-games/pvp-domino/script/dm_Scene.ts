@@ -6,6 +6,7 @@ import { DigTreasureControler } from "./common/DigTreasureControler";
 import { DT_eventListenner } from "./eventListener/DT_eventListenner";
 import { dm_Director } from "./common/dm_Director";
 import { dm_Config } from "./common/dm_Config";
+import { DT_sendDataToSever } from "./eventListener/DT_sendDataToSever";
 const { ccclass, property } = _decorator;
 
 @ccclass("dm_Scene")
@@ -15,6 +16,8 @@ export class dm_Scene extends Component {
     dm_Director.instance.RegisterEvent();
     DigTreasureControler.instance.RegisterEvent();
     DigTreasureControler.instance.initListMoneyInTreasure();
+    DigTreasureControler.instance.initPlayerOtherInfo();
+    DT_sendDataToSever.instance.RegisterEvent();
     log("@ dm_Scene: onLoad  !!!");
     let bundle = assetManager.getBundle("bundle_" + dm_Config.GAME_NAME);
     if (bundle) {
