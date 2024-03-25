@@ -24,3 +24,7 @@ export type IP_GET_LIST_TREASURE_MAP = {
 export type IP_GET_RECORD_PLAYERS = {
   id: number;
 };
+export type IP_SET_LIST_MONEY_WIN_LOSE_NEW_ROUND = {
+  id: number;
+  mapCurrent: number;
+};

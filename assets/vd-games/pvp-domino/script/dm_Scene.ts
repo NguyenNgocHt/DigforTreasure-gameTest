@@ -7,16 +7,23 @@ import { DT_eventListenner } from "./eventListener/DT_eventListenner";
 import { dm_Director } from "./common/dm_Director";
 import { dm_Config } from "./common/dm_Config";
 import { DT_sendDataToSever } from "./eventListener/DT_sendDataToSever";
-import { AudioSource } from "cc";
+import { DT_Global } from "./common/DT_Global";
+import { DT_KEY_WORD } from "./common/DT_define";
+import { DT_listTreasureMap_LocalStorage } from "./common/dm_Config";
 const { ccclass, property } = _decorator;
 
 @ccclass("dm_Scene")
 export class dm_Scene extends Component {
+  listTreasureMap_localStorage: DT_listTreasureMap_LocalStorage = null;
   onLoad() {
+    this.listTreasureMap_localStorage = JSON.parse(localStorage.getItem(DT_KEY_WORD.LIST_TREASURE_IN_MAP));
     DT_eventListenner.instance.RegisterEvent();
     dm_Director.instance.RegisterEvent();
     DigTreasureControler.instance.RegisterEvent();
-    DigTreasureControler.instance.initListMoneyInTreasure();
+    DigTreasureControler.instance.initListMoneyInTreasure(
+      DT_Global.instance.moneyWinOrigin * this.listTreasureMap_localStorage.indexMapCurrent,
+      DT_Global.instance.moneyLoseOrigin * this.listTreasureMap_localStorage.indexMapCurrent
+    );
     DigTreasureControler.instance.initPlayerOtherInfo();
     DT_sendDataToSever.instance.RegisterEvent();
     log("@ dm_Scene: onLoad  !!!");

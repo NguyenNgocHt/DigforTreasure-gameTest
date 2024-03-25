@@ -4,12 +4,11 @@ import { DT_commandID_OP } from "./../network/DT_networkDefine";
 import { VDEventListener } from "../../../../vd-framework/common/VDEventListener";
 import { _decorator, Component } from "cc";
 import { DT_GAME_STATUS_EVENT, DT_commanID_IP } from "../network/DT_networkDefine";
-import { IP_GET_LIST_TREASURE_MAP, IP_GET_TREASURE_RANDOM_LIST, IP_SEND_INDEX_ONCLICK_PIECE, PALYER_NAME_DATA } from "../model/DT_inputDataModel";
+import { IP_GET_LIST_TREASURE_MAP, IP_GET_TREASURE_RANDOM_LIST, IP_SEND_INDEX_ONCLICK_PIECE, IP_SET_LIST_MONEY_WIN_LOSE_NEW_ROUND } from "../model/DT_inputDataModel";
 import { DT_playerInfoDataFull } from "../model/DT_outputDataFull";
 import { DT_Global } from "./DT_Global";
-import { DT_KEY_WORD, DT_path } from "./DT_define";
+import { DT_KEY_WORD } from "./DT_define";
 import { DT_playersInfo } from "./dm_Config";
-import { JsonAsset } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("DigTreasureControler")
@@ -37,21 +36,20 @@ export class DigTreasureControler extends Component {
   private countOnclickPiece: number = 0;
   private digTreasureCurrentIndex = 0;
   private treasureNumber: number = 8;
-  private pieceNumber: number = 9;
   private numberUsers: number = 50;
   private numberMap: number = 3;
   private indexMapCurrent = 0;
   private valueRowAndColumn: number = 3;
 
-  initListMoneyInTreasure() {
-    let valueMoney_win_origin = 1000;
-    let valueMoney_lose_origin = 600;
-    for (let i = 0; i < 8; i++) {
+  initListMoneyInTreasure(moneyWin_origin: number, moneyLose_Origin: number) {
+    let valueMoney_win_origin = moneyWin_origin;
+    let valueMoney_lose_origin = moneyLose_Origin;
+    for (let i = 0; i < this.treasureNumber; i++) {
       valueMoney_win_origin = valueMoney_win_origin * (i + 1);
       this.MONEY_WIN_IN_TREASURE.push(valueMoney_win_origin);
     }
     console.log("value money win list", this.MONEY_WIN_IN_TREASURE);
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < this.treasureNumber; i++) {
       valueMoney_lose_origin = valueMoney_lose_origin * (i + 1);
       this.MONEY_LOSE_IN_TREASURE.push(valueMoney_lose_origin);
     }
@@ -109,6 +107,9 @@ export class DigTreasureControler extends Component {
         break;
       case DT_commanID_IP.GET_RECORD_PLAYERS:
         this.setRecordPlayersList();
+        break;
+      case DT_commanID_IP.SET_LIST_MONEY_WIN_LOSE_NEW_ROUND:
+        this.setListMoneyWinLoseGame_newRound(dataJson);
         break;
     }
   }
@@ -171,6 +172,13 @@ export class DigTreasureControler extends Component {
       VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.SEVER_TO_CLIENT, JSON.stringify(this.userNameData));
     }
     console.log("user name data", this.userNameData);
+  }
+  setListMoneyWinLoseGame_newRound(dataJson: IP_SET_LIST_MONEY_WIN_LOSE_NEW_ROUND) {
+    console.log("set list money win lose game new round", dataJson.mapCurrent);
+    this.MONEY_LOSE_IN_TREASURE = [];
+    this.MONEY_WIN_IN_TREASURE = [];
+    this.LIST_INDEX_MAP = [];
+    this.initListMoneyInTreasure(dataJson.mapCurrent * DT_Global.instance.moneyWinOrigin, dataJson.mapCurrent * DT_Global.instance.moneyLoseOrigin);
   }
   setRandomListDigLocation(data: IP_GET_TREASURE_RANDOM_LIST) {
     this.digTreasureCurrentIndex = data.TreasureIndex - 1;

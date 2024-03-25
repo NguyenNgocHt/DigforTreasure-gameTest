@@ -68,6 +68,8 @@ export class DT_Global {
     "Luke",
     "Aubrey",
   ];
+  moneyWinOrigin: number = 1000;
+  moneyLoseOrigin: number = 800;
   getFirstName(): string[] {
     return this.FIRST_NAMES;
   }

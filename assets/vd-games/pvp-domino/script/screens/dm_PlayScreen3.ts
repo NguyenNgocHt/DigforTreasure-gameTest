@@ -1,22 +1,17 @@
 import { DT_Global } from "./../common/DT_Global";
 import { DT_commanID_IP } from "./../network/DT_networkDefine";
-import { Label, log, SpriteAtlas } from "cc";
-import { _decorator, Node } from "cc";
+import { _decorator, Node, Label, log, SpriteAtlas, Button, SpriteFrame, Sprite, color } from "cc";
 import VDBasePopup from "../../../../vd-framework/ui/VDBasePopup";
 import VDBaseScreen from "../../../../vd-framework/ui/VDBaseScreen";
 import VDScreenManager from "../../../../vd-framework/ui/VDScreenManager";
 import { dm_Popup1 } from "../popups/dm_Popup1";
 import { dm_Director } from "../common/dm_Director";
 import { DT_INIT_TREASURE_MODEL, DT_PLAYER_INFO_MODEL, DT_sendResultOnclickingThePiece_dataModel } from "../model/DT_outputDataModel";
-import { Button } from "cc";
-import { Sprite } from "cc";
-import { color } from "cc";
-import { IP_GET_LIST_TREASURE_MAP, IP_GET_RECORD_PLAYERS, IP_GET_TREASURE_RANDOM_LIST } from "../model/DT_inputDataModel";
+import { IP_GET_LIST_TREASURE_MAP, IP_GET_RECORD_PLAYERS, IP_GET_TREASURE_RANDOM_LIST, IP_SET_LIST_MONEY_WIN_LOSE_NEW_ROUND } from "../model/DT_inputDataModel";
 import { DT_KEY_WORD, DT_MESENGER, DT_path } from "../common/DT_define";
 import { dm_PopupNotify } from "../popups/dm_PopupNotify";
 import { DT_listTreasureMap_LocalStorage } from "../common/dm_Config";
-import { JsonAsset } from "cc";
-import { SpriteFrame } from "cc";
+
 const { ccclass, property } = _decorator;
 
 @ccclass("dm_PlayScreen3")
@@ -49,6 +44,7 @@ export class dm_PlayScreen3 extends VDBaseScreen {
   resultOnclickPiece: DT_sendResultOnclickingThePiece_dataModel = null;
   getListTreasureMap: IP_GET_LIST_TREASURE_MAP = null;
   getRecordPlayersList: IP_GET_RECORD_PLAYERS = null;
+  IP_setListMoney_win_lose_game: IP_SET_LIST_MONEY_WIN_LOSE_NEW_ROUND = null;
   listPosTreasure: Node[] = [];
   treasureOpen: number = 0;
   indexMapCurrent: number = 1;
@@ -281,6 +277,7 @@ export class dm_PlayScreen3 extends VDBaseScreen {
             VDScreenManager.instance.hidePopup(true);
             this.sendDataToSever_GetTreasureInMap();
             dm_Director.instance.setIndexMap(this.indexMapCurrent);
+            this.sendDataToSever_setListMoneyWinLoseGame();
           },
           () => {
             VDScreenManager.instance.hidePopup(true);
@@ -292,5 +289,12 @@ export class dm_PlayScreen3 extends VDBaseScreen {
       true,
       false
     );
+  }
+  sendDataToSever_setListMoneyWinLoseGame() {
+    this.IP_setListMoney_win_lose_game = {
+      id: DT_commanID_IP.SET_LIST_MONEY_WIN_LOSE_NEW_ROUND,
+      mapCurrent: this.indexMapCurrent,
+    };
+    dm_Director.instance.sendDataToSever(this.IP_setListMoney_win_lose_game);
   }
 }
