@@ -11,11 +11,12 @@ import { IP_GET_LIST_TREASURE_MAP, IP_GET_RECORD_PLAYERS, IP_GET_TREASURE_RANDOM
 import { DT_KEY_WORD, DT_MESENGER, DT_path } from "../common/DT_define";
 import { dm_PopupNotify } from "../popups/dm_PopupNotify";
 import { DT_listTreasureMap_LocalStorage } from "../common/dm_Config";
+import { I_playScreen } from "../common/dt_interfaceDefine";
 
 const { ccclass, property } = _decorator;
 
 @ccclass("dm_PlayScreen3")
-export class dm_PlayScreen3 extends VDBaseScreen {
+export class dm_PlayScreen3 extends VDBaseScreen implements I_playScreen {
   @property(Label)
   lbNotify: Label = null!;
   @property(Node)
@@ -144,7 +145,7 @@ export class dm_PlayScreen3 extends VDBaseScreen {
     dm_Director.instance.sendDataToSever(this.getRecordPlayersList);
   }
 
-  InitTreasure(data: DT_INIT_TREASURE_MODEL) {
+  InitTreasure(data: DT_INIT_TREASURE_MODEL): void {
     console.log("data map", data);
     this.treasureData = data;
     let listIndexTreasure = this.treasureData.listTreasureStatus;
@@ -205,7 +206,7 @@ export class dm_PlayScreen3 extends VDBaseScreen {
     localStorage.setItem(DT_KEY_WORD.LIST_TREASURE_IN_MAP, dataStringIfly);
   }
 
-  initPlayerInfo(data: DT_PLAYER_INFO_MODEL) {
+  initPlayerInfo(data: DT_PLAYER_INFO_MODEL): void {
     this.playerInfor_localStorage = {
       id: data.id,
       userName: data.userName,
@@ -229,7 +230,7 @@ export class dm_PlayScreen3 extends VDBaseScreen {
     this.avatarUser.spriteFrame = spriteFrameAvatar;
   }
 
-  updateMoneyAfterWithResult(data: DT_sendResultOnclickingThePiece_dataModel) {
+  updateMoneyAfterWithResult(data: DT_sendResultOnclickingThePiece_dataModel): void {
     this.resultOnclickPiece = data;
     let clonePlayerInfo: DT_PLAYER_INFO_MODEL = null;
     if (this.resultOnclickPiece.money > 0 && !this.resultOnclickPiece.resultOnClick) {

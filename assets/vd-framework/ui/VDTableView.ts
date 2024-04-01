@@ -2,6 +2,7 @@ import * as cc from "cc";
 
 import VDScrollView, { VDScrollViewDelegate, VDScrollDirection } from "./VDScrollView";
 import VDTableCell from "./VDTableCell";
+import { DT_playersInfo } from "../../vd-games/pvp-domino/script/common/dm_Config";
 
 export enum VDTableViewFillOrder {
   LEFT_TO_RIGHT__TOP_TO_BOTTOM = 0,
@@ -42,6 +43,7 @@ export interface VDTableViewDataSource {
   tableCellAtIndex(tableView: VDTableView, idx: number): cc.Node;
   tableCellSize?(tableView: VDTableView): cc.Size;
   tableCellAnchor?(tableView: VDTableView): cc.Vec2;
+  initListData(data: DT_playersInfo[]): void;
 }
 
 @ccclass

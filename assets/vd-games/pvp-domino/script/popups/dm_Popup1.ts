@@ -8,10 +8,11 @@ import { Label } from "cc";
 import { DT_Global } from "../common/DT_Global";
 import { DT_path } from "../common/DT_define";
 import VDScreenManager from "../../../../vd-framework/ui/VDScreenManager";
+import { I_popup1 } from "../common/dt_interfaceDefine";
 const { ccclass, property } = _decorator;
 
 @ccclass("dm_Popup1")
-export class dm_Popup1 extends VDBasePopup {
+export class dm_Popup1 extends VDBasePopup implements I_popup1 {
   @property(audioControler)
   audioPlay: audioControler = null;
   @property(Node)
@@ -37,7 +38,7 @@ export class dm_Popup1 extends VDBasePopup {
     console.log("Da ket noi ok");
   }
 
-  initTableTreasure(data: DT_listRandomLocationTreasure_dataModel, listNode: Node[]) {
+  initTableTreasure(data: DT_listRandomLocationTreasure_dataModel, listNode: Node[]): void {
     this.listIconNode = [];
     let listIconNode = listNode;
     this.listIconNode = listIconNode;
@@ -85,7 +86,7 @@ export class dm_Popup1 extends VDBasePopup {
     }
   }
 
-  showResultOnClickToPiece(data: DT_sendResultOnclickingThePiece_dataModel) {
+  showResultOnClickToPiece(data: DT_sendResultOnclickingThePiece_dataModel): void {
     console.log(data);
     this.resultOnclickPiece = {
       id: data.id,
@@ -187,7 +188,7 @@ export class dm_Popup1 extends VDBasePopup {
     let pieceControl = pieceNode.getComponent("pieceControler") as pieceControler;
     pieceControl.setSpriteFramePiece(spriteFrame_piece);
   }
-  onClickButton_sound() {
+  onClickButton_sound(): void {
     this.audioPlay.onclickSound();
   }
 }

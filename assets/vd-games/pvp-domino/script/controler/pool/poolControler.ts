@@ -3,10 +3,11 @@ import { instantiate } from "cc";
 import { Prefab } from "cc";
 import { _decorator, Component, Node } from "cc";
 import { dm_Director } from "../../common/dm_Director";
+import { I_poolControler } from "../../common/dt_interfaceDefine";
 const { ccclass, property } = _decorator;
 
 @ccclass("poolControler")
-export class poolControler extends Component {
+export class poolControler extends Component implements I_poolControler {
   @property(Prefab)
   private icon_prefab: Prefab = null;
   @property(Node)

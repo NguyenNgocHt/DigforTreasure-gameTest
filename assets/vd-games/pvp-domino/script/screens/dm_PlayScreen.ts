@@ -14,10 +14,11 @@ import { labelAssembler } from "cc";
 import { Sprite } from "cc";
 import { SpriteFrame } from "cc";
 import { SpriteAtlas } from "cc";
+import { I_homeScreen } from "../common/dt_interfaceDefine";
 const { ccclass, property } = _decorator;
 
 @ccclass("dm_PlayScreen")
-export class dm_PlayScreen extends VDBaseScreen {
+export class dm_PlayScreen extends VDBaseScreen implements I_homeScreen {
   @property(Label)
   playerName: Label = null;
   @property(Label)
@@ -26,11 +27,12 @@ export class dm_PlayScreen extends VDBaseScreen {
   playerSprite: Sprite = null;
   initPlayerInfoData: DT_PLAYER_INFO_MODEL = null;
   playerInfor_localStogare: DT_PLAYER_INFO_MODEL = null;
+
   onLoad() {
     this.CallinitPlayerInfo();
   }
-  
-  CallinitPlayerInfo() {
+
+  CallinitPlayerInfo(): void {
     if (localStorage.getItem(DT_KEY_WORD.PLAYER_INFO) == null) {
       this.showGetNamePlayerPopup();
     } else {
@@ -79,8 +81,7 @@ export class dm_PlayScreen extends VDBaseScreen {
       true
     );
   }
-
-  initPlayerInfo(data: DT_PLAYER_INFO_MODEL) {
+  initPlayerInfo(data: DT_PLAYER_INFO_MODEL): void {
     this.playerInfor_localStogare = {
       id: data.id,
       userName: data.userName,
@@ -89,7 +90,7 @@ export class dm_PlayScreen extends VDBaseScreen {
     };
     let playerInfoString = JSON.stringify(this.playerInfor_localStogare);
     localStorage.setItem("PLAYER-INFO", playerInfoString);
-    console.log(data);
+    console.log("DATA", data);
     this.initPlayerInfoData = data;
     this.setAvatar(this.initPlayerInfoData.avatarID);
     this.playerName.string = data.userName;

@@ -1,3 +1,4 @@
+import { I_homeScreen, I_playScreen, I_poolControler, I_popup1 } from "./dt_interfaceDefine";
 import { DT_sendDataToSever } from "./../eventListener/DT_sendDataToSever";
 import { poolControler } from "./../controler/pool/poolControler";
 import { dm_Popup1 } from "./../popups/dm_Popup1";
@@ -16,6 +17,7 @@ import {
 import { IP_GET_LIST_TREASURE_MAP, IP_GET_RECORD_PLAYERS, IP_GET_TREASURE_RANDOM_LIST, IP_SEND_INDEX_ONCLICK_PIECE, PALYER_NAME_DATA } from "../model/DT_inputDataModel";
 import { dm_PopupNotify } from "../popups/dm_PopupNotify";
 import { dm_TableView } from "../popups/table_view/dm_TableView";
+import { VDTableViewDataSource } from "../../../../vd-framework/ui/VDTableView";
 const { ccclass, property } = _decorator;
 
 @ccclass("dm_Director")
@@ -35,6 +37,11 @@ export class dm_Director extends Component {
   pool_controler: poolControler | null = null;
   notifyPopup: dm_PopupNotify | null = null;
   tableView: dm_TableView | null = null;
+  private i_homeScreen: I_homeScreen;
+  private i_playScreen: I_playScreen;
+  private i_popup1: I_popup1;
+  private i_poolControler: I_poolControler;
+  private i_tableView: VDTableViewDataSource;
   //output from sever
   private initTreasure_dataModel: DT_INIT_TREASURE_MODEL = null;
   public get InitTreasure_dataModel(): DT_INIT_TREASURE_MODEL {
@@ -90,8 +97,9 @@ export class dm_Director extends Component {
   setPlayerInfo(playerInfo: DT_PLAYER_INFO_MODEL) {
     this.initPlayerInfo_dataModel = playerInfo;
     if (this.homeScreen) {
+      this.i_homeScreen = this.homeScreen;
       console.log(this.initPlayerInfo_dataModel);
-      this.homeScreen.initPlayerInfo(this.initPlayerInfo_dataModel);
+      this.i_homeScreen.initPlayerInfo(this.initPlayerInfo_dataModel);
     }
   }
   initLocationTreasure(listRandomLocation: DT_listRandomLocationTreasure_dataModel) {
@@ -110,7 +118,8 @@ export class dm_Director extends Component {
         }
       }
       if (this.dm_popup_1) {
-        this.dm_popup_1.initTableTreasure(this.listLocationTreasure, listIconNode);
+        this.i_popup1 = this.dm_popup_1;
+        this.i_popup1.initTableTreasure(this.listLocationTreasure, listIconNode);
       }
     }, 0.01);
   }
@@ -118,10 +127,12 @@ export class dm_Director extends Component {
   setResultOnclickToPiece(data: DT_sendResultOnclickingThePiece_dataModel) {
     this.resultOnClickToPiece = data;
     if (this.dm_popup_1) {
-      this.dm_popup_1.showResultOnClickToPiece(this.resultOnClickToPiece);
+      this.i_popup1 = this.dm_popup_1;
+      this.i_popup1.showResultOnClickToPiece(this.resultOnClickToPiece);
     }
     if (this.playScreen) {
-      this.playScreen.updateMoneyAfterWithResult(data);
+      this.i_playScreen = this.playScreen;
+      this.i_playScreen.updateMoneyAfterWithResult(data);
     }
   }
   getRecordPlayers(data: DT_recordPlayersList_dataModel) {
@@ -131,15 +142,17 @@ export class dm_Director extends Component {
   }
   initDataTableView_recordPlayers() {
     if (this.tableView) {
-      this.tableView.initListData(this.recordPlayesList.ListPlayesInfo);
+      this.i_tableView = this.tableView;
+      this.i_tableView.initListData(this.recordPlayesList.ListPlayesInfo);
     }
   }
   public InitTreasure() {
     console.log("initTreasure_dataModel", this.initTreasure_dataModel, this.playScreen);
     if (this.playScreen) {
-      this.playScreen.InitTreasure(this.initTreasure_dataModel);
+      this.i_playScreen = this.playScreen;
+      this.i_playScreen.InitTreasure(this.initTreasure_dataModel);
       this.initPlayerInfo_dataModel = JSON.parse(localStorage.getItem("PLAYER-INFO"));
-      this.playScreen.initPlayerInfo(this.initPlayerInfo_dataModel);
+      this.i_playScreen.initPlayerInfo(this.initPlayerInfo_dataModel);
     }
   }
   public GetInitTreasureData(): DT_INIT_TREASURE_MODEL {
@@ -149,12 +162,14 @@ export class dm_Director extends Component {
   }
   public pushPoolPiece(poolNode: Node) {
     if (this.pool_controler) {
-      this.pool_controler.PushIconPiece(poolNode);
+      this.i_poolControler = this.pool_controler;
+      this.i_poolControler.PushIconPiece(poolNode);
     }
   }
   public getPlayerInfoInHomeScreen() {
     if (this.homeScreen) {
-      this.homeScreen.CallinitPlayerInfo();
+      this.i_homeScreen = this.homeScreen;
+      this.i_homeScreen.CallinitPlayerInfo();
     }
   }
   public setIndexMap(indexMap: number) {
@@ -162,7 +177,8 @@ export class dm_Director extends Component {
   }
   onClickButton_sound() {
     if (this.dm_popup_1) {
-      this.dm_popup_1.onClickButton_sound();
+      this.i_popup1 = this.dm_popup_1;
+      this.i_popup1.onClickButton_sound();
     }
   }
   //send data to sever

@@ -1,3 +1,5 @@
+
+
 export type PALYER_NAME_DATA = {
   id: number;
   playerName: string;
@@ -28,3 +30,4 @@ export type IP_SET_LIST_MONEY_WIN_LOSE_NEW_ROUND = {
   id: number;
   mapCurrent: number;
 };
+
