@@ -8,7 +8,10 @@ import { Label } from "cc";
 import { DT_Global } from "../common/DT_Global";
 import { DT_path } from "../common/DT_define";
 import VDScreenManager from "../../../../vd-framework/ui/VDScreenManager";
-import { I_popup1 } from "../common/dt_interfaceDefine";
+import { I_director, I_popup1, I_popup1_view } from "../common/dt_interfaceDefine";
+import { VDEventListener } from "../../../../vd-framework/common/VDEventListener";
+import { DT_GAME_STATUS_EVENT } from "../network/DT_networkDefine";
+import { popup1_view } from "./popup1/popup1_view";
 const { ccclass, property } = _decorator;
 
 @ccclass("dm_Popup1")
@@ -23,6 +26,8 @@ export class dm_Popup1 extends VDBasePopup implements I_popup1 {
   showPointLose: Label = null;
   @property(Sprite)
   BG_popup1: Sprite = null;
+  @property(popup1_view)
+  popupView: popup1_view = null;
   finishedCallback: any = null;
   listIconNode: Node[] = [];
   listLocationPiece: DT_listRandomLocationTreasure_dataModel = null;
@@ -30,165 +35,114 @@ export class dm_Popup1 extends VDBasePopup implements I_popup1 {
   rowNumber: number = 3;
   columnNumber: number = 3;
   distance_2_icon: number = 150;
+  countNumberUpdate: number = 0;
+
+  private _i_director: I_director = null;
+  private _iPopup1View: I_popup1_view = null;
   start() {
     dm_Director.instance.dm_popup_1 = this;
+    // this.setVarInterface(dm_Director.instance, this.popupView);
   }
-
-  showLogConect() {
-    console.log("Da ket noi ok");
+  setup_newPopup() {
+    this.setVarInterface(dm_Director.instance, this.popupView);
+    this.registerEvent();
   }
-
-  initTableTreasure(data: DT_listRandomLocationTreasure_dataModel, listNode: Node[]): void {
-    this.listIconNode = [];
-    let listIconNode = listNode;
-    this.listIconNode = listIconNode;
-    console.log("data !!!!!!!!!!!!!!!!!!!!!!!!!!", data);
-    this.listLocationPiece = {
-      id: data.id,
-      listRandomLocationTreasure: data.listRandomLocationTreasure,
-      indexMapCurrent: data.indexMapCurrent,
-      valueRowAndColumn: data.valueRowAndColumn,
-    };
-    this.setMapPopup1(this.listLocationPiece.indexMapCurrent);
-    let posStart = this.PosStart.getWorldPosition();
-    let posStartClone = posStart;
-    if (this.listLocationPiece.valueRowAndColumn == 3) {
-      posStart = posStartClone;
-      this.distance_2_icon = 150;
-    } else if (this.listLocationPiece.valueRowAndColumn == 4) {
-      posStart = new Vec3(posStartClone.x - 70, posStartClone.y + 115, 0);
-      this.distance_2_icon = 140;
-    } else if (this.listLocationPiece.valueRowAndColumn == 5) {
-      posStart = new Vec3(posStartClone.x - 90, posStartClone.y + 130, 0);
-      this.distance_2_icon = 120;
-    }
-    let listLocation = this.listLocationPiece.listRandomLocationTreasure;
-    console.log("list location", listLocation, this.listLocationPiece);
-    for (let i = 0; i < this.listLocationPiece.valueRowAndColumn; i++) {
-      for (let j = 0; j < this.listLocationPiece.valueRowAndColumn; j++) {
-        let k = i * this.listLocationPiece.valueRowAndColumn + j;
-
-        let pieceControler = listIconNode[k].getComponent("pieceControler") as pieceControler;
-        pieceControler.setPiceIndex(listLocation[k], k);
-        this.pieceParent.addChild(listIconNode[k]);
-        listIconNode[k].setWorldPosition(posStart.x + j * this.distance_2_icon, posStart.y - i * this.distance_2_icon, 0);
-        if (this.listLocationPiece.valueRowAndColumn == 3) {
-          listIconNode[k].setScale(1, 1, 1);
-          this.setPieceColor(listIconNode[k], 1);
-        } else if (this.listLocationPiece.valueRowAndColumn == 4) {
-          listIconNode[k].setScale(0.9, 0.9, 0.9);
-          this.setPieceColor(listIconNode[k], 2);
-        } else if (this.listLocationPiece.valueRowAndColumn == 5) {
-          listIconNode[k].setScale(0.8, 0.8, 0.8);
-          this.setPieceColor(listIconNode[k], 3);
-        }
-      }
+  registerEvent() {
+    VDEventListener.on(DT_GAME_STATUS_EVENT.SEND_TO_POPUP1_CTR_LIST_RANDOM_LOCATION_TREASURE, this.init_tableTreasure.bind(this));
+    VDEventListener.on(DT_GAME_STATUS_EVENT.PUSH_ICON_NODE_TO_POOL_GROUP, this.pushPoolPieceGroup.bind(this));
+    VDEventListener.on(DT_GAME_STATUS_EVENT.HIDE_POPUP, this.onClickBtnClose.bind(this));
+    VDEventListener.on(DT_GAME_STATUS_EVENT.SHOW_EFFECT_TREASURE_OPEN, this.showEffect_treasureOpen.bind(this));
+    VDEventListener.on(DT_GAME_STATUS_EVENT.AUDIO_WINGAME, this.audioPlay_winGame.bind(this));
+    VDEventListener.on(DT_GAME_STATUS_EVENT.UNLOCKER_STATUS, this.setUnlockerStatus.bind(this));
+    VDEventListener.on(DT_GAME_STATUS_EVENT.SHOW_EFFECT_BOOM, this.showEffectBoom.bind(this));
+    VDEventListener.on(DT_GAME_STATUS_EVENT.AUDIO_BOOM_SOUND, this.audioPlay_boom.bind(this));
+    VDEventListener.on(DT_GAME_STATUS_EVENT.SHOW_POINT_LOSE, this.show_PointLose.bind(this));
+  }
+  offEvent() {
+    VDEventListener.off(DT_GAME_STATUS_EVENT.SEND_TO_POPUP1_CTR_LIST_RANDOM_LOCATION_TREASURE, this.init_tableTreasure.bind(this));
+    VDEventListener.off(DT_GAME_STATUS_EVENT.PUSH_ICON_NODE_TO_POOL_GROUP, this.pushPoolPieceGroup.bind(this));
+    VDEventListener.off(DT_GAME_STATUS_EVENT.HIDE_POPUP, this.onClickBtnClose.bind(this));
+    VDEventListener.off(DT_GAME_STATUS_EVENT.SHOW_EFFECT_TREASURE_OPEN, this.showEffect_treasureOpen.bind(this));
+    VDEventListener.off(DT_GAME_STATUS_EVENT.AUDIO_WINGAME, this.audioPlay_winGame.bind(this));
+    VDEventListener.off(DT_GAME_STATUS_EVENT.UNLOCKER_STATUS, this.setUnlockerStatus.bind(this));
+    VDEventListener.off(DT_GAME_STATUS_EVENT.SHOW_EFFECT_BOOM, this.showEffectBoom.bind(this));
+    VDEventListener.off(DT_GAME_STATUS_EVENT.AUDIO_BOOM_SOUND, this.audioPlay_boom.bind(this));
+    VDEventListener.off(DT_GAME_STATUS_EVENT.SHOW_POINT_LOSE, this.show_PointLose.bind(this));
+  }
+  init_tableTreasure(data, listNode) {
+    if (this.node != null) {
+      this.listIconNode = [];
+      let listIconNode = listNode;
+      this.listIconNode = listIconNode;
+      this._iPopup1View.initTableTreasure(data, listIconNode);
     }
   }
 
-  showResultOnClickToPiece(data: DT_sendResultOnclickingThePiece_dataModel): void {
-    console.log(data);
-    this.resultOnclickPiece = {
-      id: data.id,
-      indexInArr: data.indexInArr,
-      countOnClick: data.countOnClick,
-      resultOnClick: data.resultOnClick,
-      money: data.money,
-    };
-    let resultOnclickPiece = this.resultOnclickPiece.resultOnClick;
-    if (resultOnclickPiece) {
-      this.scheduleOnce(function () {
-        console.log("huy node sau 8 s");
-        this.pushPoolPieceGroup();
-        this.onClickBtnClose();
-      }, 8);
-      for (let i = 0; i < this.listIconNode.length; i++) {
-        let pieceControler = this.listIconNode[i].getComponent("pieceControler") as pieceControler;
-        if (i == this.resultOnclickPiece.indexInArr) {
-          pieceControler.showEffectTreasureOpen(this.resultOnclickPiece.money);
-          this.audioPlay.winSound();
-        } else {
-          pieceControler.LockOnClick_on_off(true);
-          this.scheduleOnce(function () {
-            pieceControler.showEffectBoom();
-            this.audioPlay.onClickEffectBoom();
-          }, DT_Global.instance.RandomNumber(200, 300) / 100);
-        }
-      }
-    } else {
-      if (this.resultOnclickPiece.countOnClick === 3) {
-        this.scheduleOnce(function () {
-          console.log("huy node sau 7 s");
-          this.pushPoolPieceGroup();
-          this.onClickBtnClose();
-        }, 6);
-        this.scheduleOnce(function () {
-          this.show_PointLose(data.money);
-        }, 2);
-        for (let i = 0; i < this.listIconNode.length; i++) {
-          let pieceControler = this.listIconNode[i].getComponent("pieceControler") as pieceControler;
-          if (i == this.resultOnclickPiece.indexInArr) {
-            this.audioPlay.onClickEffectBoom();
-            pieceControler.showEffectBoom();
-          } else {
-            pieceControler.LockOnClick_on_off(true);
-            this.scheduleOnce(function () {
-              this.audioPlay.onClickEffectBoom();
-              pieceControler.showEffectBoom();
-            }, DT_Global.instance.RandomNumber(10, 300) / 100);
-          }
-        }
-      } else {
-        for (let i = 0; i < this.listIconNode.length; i++) {
-          if (i == this.resultOnclickPiece.indexInArr) {
-            let pieceControler = this.listIconNode[i].getComponent("pieceControler") as pieceControler;
-            this.audioPlay.onClickEffectBoom();
-            pieceControler.showEffectBoom();
-          }
-        }
-      }
+  setVarInterface(director: I_director, popupView: I_popup1_view) {
+    if (this.node != null) {
+      this._i_director = director;
+      this._iPopup1View = popupView;
     }
   }
 
   pushPoolPieceGroup() {
-    for (let i = 0; i < this.listIconNode.length; i++) {
-      dm_Director.instance.pushPoolPiece(this.listIconNode[i]);
+    if (this.node != null) {
+      for (let i = 0; i < this.listIconNode.length; i++) {
+        this._i_director.pushPoolPiece(this.listIconNode[i]);
+      }
+      this.pieceParent.removeAllChildren();
     }
-    this.pieceParent.removeAllChildren();
   }
 
   onClickBtnClose() {
-    this.hide();
-    this.finishedCallback && this.finishedCallback();
+    if (this.node != null) {
+      this.hide();
+      this.finishedCallback && this.finishedCallback();
+    }
   }
 
   show_PointLose(coin: number) {
-    this.showPointLose.string = "-" + coin.toString();
-    tween(this.showPointLose.node)
-      .to(0.2, { scale: new Vec3(1.5, 1.5, 1.5) })
-      .to(0.2, { scale: new Vec3(1, 1, 1) })
-      .union()
-      .repeat(5)
-      .call(() => {
-        this.showPointLose.string = "";
-        this.showPointLose.node.setScale(1, 1, 1);
-      })
-      .start();
+    if (this.node != null) {
+      this._iPopup1View.showPoint_loseGame(coin);
+    }
   }
-
+  showEffect_treasureOpen(money, pieceIndex) {
+    if (this.node != null) {
+      let pieceControler = this.listIconNode[pieceIndex].getComponent("pieceControler") as pieceControler;
+      pieceControler.showEffectTreasureOpen(money);
+    }
+  }
   setMapPopup1(indexMap: number) {
-    let imagesPath = DT_path.SPRITE_MAP + "map" + indexMap.toString() + "/spriteFrame";
-    let spriteFrame_map = VDScreenManager.instance.assetBundle.get(imagesPath, SpriteFrame);
-    this.BG_popup1.spriteFrame = spriteFrame_map;
+    if (this.node != null) {
+      this._iPopup1View.setMapPopup(indexMap);
+    }
   }
 
-  setPieceColor(pieceNode: Node, indexMap: number) {
-    let imagesPath = DT_path.TREASURE_COLOR + "piece" + indexMap.toString() + "/spriteFrame";
-    let spriteFrame_piece = VDScreenManager.instance.assetBundle.get(imagesPath, SpriteFrame);
-    let pieceControl = pieceNode.getComponent("pieceControler") as pieceControler;
-    pieceControl.setSpriteFramePiece(spriteFrame_piece);
-  }
   onClickButton_sound(): void {
-    this.audioPlay.onclickSound();
+    if (this.node != null) {
+      this.audioPlay.onclickSound();
+    }
+  }
+  audioPlay_winGame() {
+    if (this.node != null) {
+      this.audioPlay.winSound();
+    }
+  }
+  setUnlockerStatus(pieceIndex) {
+    if (this.node != null) {
+      let pieceControler = this.listIconNode[pieceIndex].getComponent("pieceControler") as pieceControler;
+      pieceControler.setToLockTreasureDiggingStatus(true);
+    }
+  }
+  showEffectBoom(pieceIndex) {
+    if (this.node != null) {
+      let pieceControler = this.listIconNode[pieceIndex].getComponent("pieceControler") as pieceControler;
+      pieceControler.showEffectBoom();
+    }
+  }
+  audioPlay_boom(pieceIndex) {
+    if (this.node != null) {
+      this.audioPlay.onClickEffectBoom();
+    }
   }
 }

@@ -3,21 +3,26 @@ import { _decorator, Component, Node } from "cc";
 import { VDEventListener } from "../../../../vd-framework/common/VDEventListener";
 import { DT_initTreaDataFull, DT_listRandomLocationTreasure_OP, DT_playerInfoDataFull, DT_recordPlayersList, DT_sendResultOnclickingThePiece } from "../model/DT_outputDataFull";
 import { DT_convertDataModel } from "../model/DT_convertDataModel";
+import { I_buildDataModel } from "../common/dt_interfaceDefine";
 const { ccclass, property } = _decorator;
 
 @ccclass("DT_eventListenner")
 export class DT_eventListenner extends Component {
+  constructor(dataModel: I_buildDataModel) {
+    super();
+    this.i_buildDataModel = dataModel;
+  }
+  startingTime: number = 0;
+  started: boolean = false;
   private static _instance: DT_eventListenner = null!;
-
+  private i_buildDataModel: I_buildDataModel;
   public static get instance(): DT_eventListenner {
     if (this._instance == null) {
-      this._instance = new DT_eventListenner();
+      let buildDataModel = new DT_convertDataModel();
+      this._instance = new DT_eventListenner(buildDataModel);
     }
 
     return this._instance;
-  }
-  start() {
-    // this.RegisterEvent();
   }
   public RegisterEvent() {
     VDEventListener.on(DT_GAME_STATUS_EVENT.SEVER_TO_CLIENT, this.GetDataFromSever.bind(this));
@@ -49,31 +54,30 @@ export class DT_eventListenner extends Component {
         break;
     }
   }
-
   SendToDirector_initTreasure(initTreasureData: DT_initTreaDataFull) {
-    let initTreasureDataModel = DT_convertDataModel.buildInitTreasure_dataMode(initTreasureData);
+    let initTreasureDataModel = this.i_buildDataModel.buildInitTreasure_dataMode(initTreasureData);
     console.log("initTreasureDataModel", initTreasureData);
     VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.INIT_TREASURE_TO_DIRECTOR, initTreasureDataModel);
   }
 
   sendToDirector_initPlayerInfo(playerInfo: DT_playerInfoDataFull) {
-    let playerInfoDataModel = DT_convertDataModel.buildInitPlayerInfo_dataModel(playerInfo);
+    let playerInfoDataModel = this.i_buildDataModel.buildInitPlayerInfo_dataModel(playerInfo);
     VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.INIT_PLAYER_INFO, playerInfoDataModel);
   }
 
   sendToDirector_getListRandomLocationTreasure(listRandomLocationTreasure: DT_listRandomLocationTreasure_OP) {
-    let randomListLocation = DT_convertDataModel.buildListRandomLocationTreasure_dataModel(listRandomLocationTreasure);
+    let randomListLocation = this.i_buildDataModel.buildListRandomLocationTreasure_dataModel(listRandomLocationTreasure);
     VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.GET_LIST_RANDOM_LOCATION_TREASURE, randomListLocation);
   }
 
   sendToDirector_resultOnclickPiece(dataJson: DT_sendResultOnclickingThePiece) {
-    let resultOnclickPieceDataModel = DT_convertDataModel.buildResultOnclickPiece_dataModel(dataJson);
+    let resultOnclickPieceDataModel = this.i_buildDataModel.buildResultOnclickPiece_dataModel(dataJson);
     VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.RESULT_ONCLICK_PIECE, resultOnclickPieceDataModel);
   }
 
   sendToDirector_recordPlayersList(dataJson: DT_recordPlayersList) {
     console.log("record data", dataJson);
-    let recordPlayersList_dataModel = DT_convertDataModel.builPlayersInfo_DataModel(dataJson);
+    let recordPlayersList_dataModel = this.i_buildDataModel.builPlayersInfo_DataModel(dataJson);
     console.log("record data", recordPlayersList_dataModel);
     VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.RECORD_PLAYERS_DATA, recordPlayersList_dataModel);
   }

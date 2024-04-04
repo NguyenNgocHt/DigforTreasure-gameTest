@@ -39,7 +39,7 @@ export class pieceControler extends Component {
     this.indexInArr = indexInArr;
   }
 
-  LockOnClick_on_off(status: boolean) {
+  setToLockTreasureDiggingStatus(status: boolean) {
     this.isLockOnclick = status;
   }
 

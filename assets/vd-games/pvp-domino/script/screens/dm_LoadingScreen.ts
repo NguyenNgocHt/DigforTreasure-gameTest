@@ -26,6 +26,14 @@ export class dm_LoadingScreen extends Component {
   private _items: string[] = [];
 
   onLoad() {
+    this.setResourePath();
+    this._setVersion(dm_Config.versionGame);
+  }
+
+  start() {
+    this.loadAsset();
+  }
+  setResourePath() {
     let soundDirs = ["res/sounds/bgm/", "res/sounds/sfx/"];
 
     let imageDirs = [
@@ -46,11 +54,8 @@ export class dm_LoadingScreen extends Component {
     if (sys.isNative) this._items = this._items.concat(soundDirs);
 
     this._items = this._items.concat(soundDirs).concat(imageDirs).concat(prefabDirs).concat(prefabs);
-
-    this._setVersion(dm_Config.versionGame);
   }
-
-  start() {
+  loadAsset() {
     this.loadingProgress.progress = 0;
 
     let percent = 1.0 / (this._items.length + 1);
@@ -66,7 +71,6 @@ export class dm_LoadingScreen extends Component {
       }
     });
   }
-
   private _loadAudioWeb() {
     let soundDirs = ["res/sounds/bgm/", "res/sounds/sfx/"];
     soundDirs.forEach((soundsPath) => {

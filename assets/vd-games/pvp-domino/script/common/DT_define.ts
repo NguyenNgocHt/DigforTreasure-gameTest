@@ -10,6 +10,8 @@ export const DT_path = {
   SPRITE_MAP: "res/images/treasureMap/",
   TREASURE_COLOR: "res/images/pieceTreasure/",
   POPUP_TABLE_VIEW: "res/prefabs/popup/popup_table_view",
+  PLAY_SCREEN_3: "res/prefabs/screen/play_screen_3",
+  TRANSITION_CLOUD: "res/prefabs/transition/transition_cloud",
 };
 export const DT_KEY_WORD = {
   PLAYER_INFO: "PLAYER-INFO",

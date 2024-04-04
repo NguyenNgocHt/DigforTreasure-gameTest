@@ -63,13 +63,14 @@ export default class VDScreenManager extends cc.Component {
   private _showedMaxOrderPopup: boolean = false;
 
   isPortrait() {
-    let designResolutionSize = cc.View.instance.getDesignResolutionSize();
-    return designResolutionSize.width == 720;
+    // let designResolutionSize = cc.View.instance.getDesignResolutionSize();
+    return cc.View.instance.getDesignResolutionSize().width == 720;
   }
 
   onLoad() {
     // cc.log(`onLoad`);
 
+    //1
     this._canvas = cc.find("Canvas")!;
     this._canvasSize = this._canvas.getComponent(cc.UITransform)!.contentSize;
 
@@ -77,12 +78,16 @@ export default class VDScreenManager extends cc.Component {
     if (cc.sys.isBrowser) {
       let gameShell = document.getElementById("game-shell");
       let cvShadow = document.getElementById("canvas-shadow");
+
       if (!gameShell && !cvShadow) {
         this.createLayerGameBackground();
       }
+
     } else if (cc.sys.isMobile && cc.sys.isNative) {
       this.createLayerGameBackground();
     }
+    //2
+
     this.layerScreen = this._createLayer(VD_ZINDEX.SCREEN);
     this.layerPopup = this._createLayer(VD_ZINDEX.POPUP);
     this.layerEffect = this._createLayer(VD_ZINDEX.EFFECT);

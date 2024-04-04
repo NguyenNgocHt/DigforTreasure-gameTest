@@ -1,11 +1,21 @@
 import { _decorator } from "cc";
 import { DT_initTreaDataFull, DT_listRandomLocationTreasure_OP, DT_playerInfoDataFull, DT_recordPlayersList, DT_sendResultOnclickingThePiece } from "./DT_outputDataFull";
 import { DT_INIT_TREASURE_MODEL, DT_listRandomLocationTreasure_dataModel, DT_PLAYER_INFO_MODEL, DT_recordPlayersList_dataModel, DT_sendResultOnclickingThePiece_dataModel } from "./DT_outputDataModel";
+import { I_buildDataModel } from "../common/dt_interfaceDefine";
 const { ccclass, property } = _decorator;
 
 @ccclass("DT_convertDataModel")
-export class DT_convertDataModel {
-  static buildInitTreasure_dataMode(treasureData: DT_initTreaDataFull): DT_INIT_TREASURE_MODEL {
+export class DT_convertDataModel implements I_buildDataModel {
+  private static _instance: DT_convertDataModel = null!;
+
+  public static get instance(): DT_convertDataModel {
+    if (this._instance == null) {
+      this._instance = new DT_convertDataModel();
+    }
+
+    return this._instance;
+  }
+  buildInitTreasure_dataMode(treasureData: DT_initTreaDataFull): DT_INIT_TREASURE_MODEL {
     const treasure_data: DT_INIT_TREASURE_MODEL = {
       id: treasureData.ID,
       listTreasureStatus: treasureData.L,
@@ -15,7 +25,7 @@ export class DT_convertDataModel {
     return treasure_data;
   }
 
-  static buildInitPlayerInfo_dataModel(playerData: DT_playerInfoDataFull): DT_PLAYER_INFO_MODEL {
+  buildInitPlayerInfo_dataModel(playerData: DT_playerInfoDataFull): DT_PLAYER_INFO_MODEL {
     const player_data: DT_PLAYER_INFO_MODEL = {
       id: playerData.ID,
       userName: playerData.N,
@@ -25,7 +35,7 @@ export class DT_convertDataModel {
     return player_data;
   }
 
-  static buildListRandomLocationTreasure_dataModel(listRandomLocation: DT_listRandomLocationTreasure_OP): DT_listRandomLocationTreasure_dataModel {
+  buildListRandomLocationTreasure_dataModel(listRandomLocation: DT_listRandomLocationTreasure_OP): DT_listRandomLocationTreasure_dataModel {
     const listRandom_Location: DT_listRandomLocationTreasure_dataModel = {
       id: listRandomLocation.ID,
       listRandomLocationTreasure: listRandomLocation.LT,
@@ -35,7 +45,7 @@ export class DT_convertDataModel {
     return listRandom_Location;
   }
 
-  static buildResultOnclickPiece_dataModel(resultData: DT_sendResultOnclickingThePiece): DT_sendResultOnclickingThePiece_dataModel {
+  buildResultOnclickPiece_dataModel(resultData: DT_sendResultOnclickingThePiece): DT_sendResultOnclickingThePiece_dataModel {
     const result_data: DT_sendResultOnclickingThePiece_dataModel = {
       id: resultData.ID,
       indexInArr: resultData.I,
@@ -45,8 +55,8 @@ export class DT_convertDataModel {
     };
     return result_data;
   }
-  
-  static builPlayersInfo_DataModel(data: DT_recordPlayersList): DT_recordPlayersList_dataModel {
+
+  builPlayersInfo_DataModel(data: DT_recordPlayersList): DT_recordPlayersList_dataModel {
     const dataModel: DT_recordPlayersList_dataModel = {
       id: data.ID,
       ListPlayesInfo: data.L,

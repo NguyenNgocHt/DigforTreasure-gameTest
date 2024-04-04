@@ -1,6 +1,6 @@
 
 
-export type PALYER_NAME_DATA = {
+export type PLAYER_NAME_DATA = {
   id: number;
   playerName: string;
 };
