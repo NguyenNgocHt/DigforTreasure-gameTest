@@ -1,10 +1,10 @@
 import { _decorator, Component } from "cc";
 import VDScreenManager from "../../../../../vd-framework/ui/VDScreenManager";
-import { I_menuControler, I_playScreen } from "../../common/dt_interfaceDefine";
-import { DT_path } from "../../common/DT_define";
+import { I_menuControler, I_playScreen } from "../../common/InterfaceDefine";
+import { DT_path } from "../../common/Define";
 import VDBasePopup from "../../../../../vd-framework/ui/VDBasePopup";
 import { VDEventListener } from "../../../../../vd-framework/common/VDEventListener";
-import { DT_GAME_STATUS_EVENT } from "../../network/DT_networkDefine";
+import { DT_GAME_STATUS_EVENT } from "../../network/NetworkDefine";
 
 const { ccclass, property } = _decorator;
 

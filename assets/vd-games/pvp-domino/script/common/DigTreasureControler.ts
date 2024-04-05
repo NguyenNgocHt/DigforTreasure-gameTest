@@ -1,14 +1,14 @@
-import { DT_initTreaDataFull, DT_listRandomLocationTreasure_OP, DT_recordPlayersList, DT_sendResultOnclickingThePiece } from "./../model/DT_outputDataFull";
-import { DT_PLAYER_INFO_MODEL } from "./../model/DT_outputDataModel";
-import { DT_commandID_OP } from "./../network/DT_networkDefine";
+import { DT_initTreaDataFull, DT_listRandomLocationTreasure_OP, DT_recordPlayersList, DT_sendResultOnclickingThePiece } from "./../model/OutputDataFull";
+import { DT_PLAYER_INFO_MODEL } from "./../model/OutputDataModel";
+import { DT_commandID_OP } from "./../network/NetworkDefine";
 import { VDEventListener } from "../../../../vd-framework/common/VDEventListener";
 import { _decorator, Component } from "cc";
-import { DT_GAME_STATUS_EVENT, DT_commanID_IP } from "../network/DT_networkDefine";
-import { IP_GET_LIST_TREASURE_MAP, IP_GET_TREASURE_RANDOM_LIST, IP_SEND_INDEX_ONCLICK_PIECE, IP_SET_LIST_MONEY_WIN_LOSE_NEW_ROUND } from "../model/DT_inputDataModel";
-import { DT_playerInfoDataFull } from "../model/DT_outputDataFull";
-import { DT_Global } from "./DT_Global";
-import { DT_KEY_WORD } from "./DT_define";
-import { DT_playersInfo } from "./dm_Config";
+import { DT_GAME_STATUS_EVENT, DT_commanID_IP } from "../network/NetworkDefine";
+import { IP_GET_LIST_TREASURE_MAP, IP_GET_TREASURE_RANDOM_LIST, IP_SEND_INDEX_ONCLICK_PIECE, IP_SET_LIST_MONEY_WIN_LOSE_NEW_ROUND } from "../model/InputDataModel";
+import { DT_playerInfoDataFull } from "../model/OutputDataFull";
+import { Global } from "./Global";
+import { DT_KEY_WORD } from "./Define";
+import { DT_playersInfo } from "./Config";
 const { ccclass, property } = _decorator;
 
 @ccclass("DigTreasureControler")
@@ -64,10 +64,10 @@ export class DigTreasureControler extends Component {
   initPlayerOtherInfo() {
     if (localStorage.getItem(DT_KEY_WORD.LIST_GAME_PLAYERS_INFO) == null) {
       for (let i = 0; i < this.numberUsers; i++) {
-        let playerCoin = DT_Global.instance.RandomNumber(500000, 500000000);
-        let avatarID = DT_Global.instance.RandomNumber(1, 25);
+        let playerCoin = Global.instance.RandomNumber(500000, 500000000);
+        let avatarID = Global.instance.RandomNumber(1, 25);
         let playerInfo: DT_playersInfo = null;
-        let firstNamesUses = DT_Global.instance.getFirstName();
+        let firstNamesUses = Global.instance.getFirstName();
         playerInfo = {
           userName: firstNamesUses[i],
           avatarID: avatarID,
@@ -155,7 +155,7 @@ export class DigTreasureControler extends Component {
       this.userNameData = {
         ID: DT_commandID_OP.DT_USER_INFO,
         N: data.playerName,
-        A_ID: DT_Global.instance.RandomNumber(1, 25),
+        A_ID: Global.instance.RandomNumber(1, 25),
         M: 1000,
       };
       let dataStringIfly = JSON.stringify(this.userNameData);
@@ -178,15 +178,15 @@ export class DigTreasureControler extends Component {
     this.MONEY_LOSE_IN_TREASURE = [];
     this.MONEY_WIN_IN_TREASURE = [];
     this.LIST_INDEX_MAP = [];
-    this.initListMoneyInTreasure(dataJson.mapCurrent * DT_Global.instance.moneyWinOrigin, dataJson.mapCurrent * DT_Global.instance.moneyLoseOrigin);
+    this.initListMoneyInTreasure(dataJson.mapCurrent * Global.instance.moneyWinOrigin, dataJson.mapCurrent * Global.instance.moneyLoseOrigin);
   }
   setRandomListDigLocation(data: IP_GET_TREASURE_RANDOM_LIST) {
     this.digTreasureCurrentIndex = data.TreasureIndex - 1;
     console.log("digtreasue current index", this.digTreasureCurrentIndex);
     this.listRandom = [];
     console.log("data", data);
-    let randomLocationWithTreasure = DT_Global.instance.RandomNumber(0, this.valueRowAndColumn * this.valueRowAndColumn - 1);
-    let listRandom = DT_Global.instance.InitListRandom(randomLocationWithTreasure, this.valueRowAndColumn * this.valueRowAndColumn);
+    let randomLocationWithTreasure = Global.instance.RandomNumber(0, this.valueRowAndColumn * this.valueRowAndColumn - 1);
+    let listRandom = Global.instance.InitListRandom(randomLocationWithTreasure, this.valueRowAndColumn * this.valueRowAndColumn);
     this.listRandom = listRandom;
     console.log("list random", listRandom);
     this.op_listRandomLocationTreasure = {

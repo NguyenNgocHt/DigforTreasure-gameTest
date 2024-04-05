@@ -1,14 +1,14 @@
-import { PLAYER_NAME_DATA } from "./../model/DT_inputDataModel";
+import { PLAYER_NAME_DATA } from "./../model/InputDataModel";
 import { EditBox } from "cc";
 import { _decorator, Component, Node } from "cc";
-import { dm_Director } from "../common/dm_Director";
+import { Director } from "../common/Director";
 import VDScreenManager from "../../../../vd-framework/ui/VDScreenManager";
-import { I_director } from "../common/dt_interfaceDefine";
-import { DT_commanID_IP } from "../network/DT_networkDefine";
+import { I_director } from "../common/InterfaceDefine";
+import { DT_commanID_IP } from "../network/NetworkDefine";
 const { ccclass, property } = _decorator;
 
-@ccclass("DT_getPlayerName")
-export class DT_getPlayerName extends Component {
+@ccclass("GetPlayerName")
+export class GetPlayerName extends Component {
   @property(EditBox)
   Edit_Box_PlayerName: EditBox = null;
   private _i_director: I_director = null;
@@ -18,7 +18,7 @@ export class DT_getPlayerName extends Component {
     this._i_director = director;
   }
   onClickGetPlayerName() {
-    this.setVarInterface(dm_Director.instance);
+    this.setVarInterface(Director.instance);
     let nickName = null;
     if (this.Edit_Box_PlayerName) {
       nickName = this.Edit_Box_PlayerName.string;

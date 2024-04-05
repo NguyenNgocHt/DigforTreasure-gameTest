@@ -50,13 +50,10 @@
       },
       {
         "__id__": 295
-      },
-      {
-        "__id__": 297
       }
     ],
     "_prefab": {
-      "__id__": 299
+      "__id__": 297
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -6472,31 +6469,11 @@
     "MenuCtr": {
       "__id__": 270
     },
-    "gamePlaySevice": {
-      "__id__": 297
-    },
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
     "fileId": "dfnSHfz7FOY6rbZzypbWmF"
-  },
-  {
-    "__type__": "0b7a3neLPZL240/mGUnuNdd",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "__prefab": {
-      "__id__": 298
-    },
-    "_id": ""
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "23nLiAsoJODYBzzzAac8XN"
   },
   {
     "__type__": "cc.PrefabInfo",

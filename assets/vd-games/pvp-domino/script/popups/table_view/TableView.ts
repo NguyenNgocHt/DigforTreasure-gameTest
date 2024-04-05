@@ -1,29 +1,29 @@
-import { DT_Global } from "./../../common/DT_Global";
+import { Global } from "./../../common/Global";
 import { math } from "cc";
 import { _decorator, Component, Node } from "cc";
 import VDBasePopup from "../../../../../vd-framework/ui/VDBasePopup";
 import VDTableView, { VDTableViewDataSource } from "../../../../../vd-framework/ui/VDTableView";
-import { dm_Item_TableView } from "./dm_Item_TableView";
-import { DT_playersInfo } from "../../common/dm_Config";
-import { dm_Director } from "../../common/dm_Director";
+import { Item_TableView } from "./Item_TableView";
+import { DT_playersInfo } from "../../common/Config";
+import { Director } from "../../common/Director";
 const { ccclass, property } = _decorator;
 
-@ccclass("dm_TableView")
-export class dm_TableView extends VDBasePopup implements VDTableViewDataSource {
+@ccclass("TableView")
+export class TableView extends VDBasePopup implements VDTableViewDataSource {
   @property(VDTableView)
   protected tableView: VDTableView = null!;
 
   protected _listItems: any[] = [];
   private numItems: number = 51;
   onLoad() {
-    dm_Director.instance.tableView = this;
+    Director.instance.tableView = this;
   }
   numberOfCellsInTableView(tableView: VDTableView): number {
     return this._listItems.length;
   }
   tableCellAtIndex(tableView: VDTableView, idx: number): Node {
     let cell = tableView.dequeueCell();
-    let comp = cell?.getComponent(dm_Item_TableView);
+    let comp = cell?.getComponent(Item_TableView);
     comp?.setData(this._listItems[idx]);
     return cell;
   }
@@ -62,7 +62,7 @@ export class dm_TableView extends VDBasePopup implements VDTableViewDataSource {
       this._listItems.push({
         id: i + 1,
         content1: dataRecordPlayers[i].userName,
-        content2: DT_Global.instance.formatNumberWithCommas(dataRecordPlayers[i].coin),
+        content2: Global.instance.formatNumberWithCommas(dataRecordPlayers[i].coin),
         avatarID: dataRecordPlayers[i].avatarID,
         isMain: isMain,
         isTop1: _isTop1,

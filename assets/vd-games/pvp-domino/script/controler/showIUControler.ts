@@ -1,12 +1,12 @@
-import { I_playScreen } from "./../common/dt_interfaceDefine";
+import { I_playScreen } from "./../common/InterfaceDefine";
 import { _decorator, Component } from "cc";
-import { DT_path } from "../common/DT_define";
+import { DT_path } from "../common/Define";
 import VDScreenManager from "../../../../vd-framework/ui/VDScreenManager";
 import VDBasePopup from "../../../../vd-framework/ui/VDBasePopup";
-import { dm_PopupNotify } from "../popups/dm_PopupNotify";
-import { dm_Popup1 } from "../popups/dm_Popup1";
+import { PopupNotify } from "../popups/PopupNotify";
+import { PopupTreasure } from "../popups/PopupTreasure";
 import { VDEventListener } from "../../../../vd-framework/common/VDEventListener";
-import { DT_GAME_STATUS_EVENT } from "../network/DT_networkDefine";
+import { DT_GAME_STATUS_EVENT } from "../network/NetworkDefine";
 
 const { ccclass, property } = _decorator;
 
@@ -21,7 +21,7 @@ export class showIUControler extends Component {
     VDScreenManager.instance.showPopupFromPrefabName(
       DT_path.POPUP_NOTIFY,
       (popup: VDBasePopup) => {
-        let popupDisplay = popup as dm_PopupNotify;
+        let popupDisplay = popup as PopupNotify;
         popupDisplay.setupPopup(message, [
           () => {
             VDScreenManager.instance.hidePopup(true);
@@ -47,7 +47,7 @@ export class showIUControler extends Component {
       DT_path.POPUP_1,
       (popup: VDBasePopup) => {
         console.log("show popup");
-        let popupWin = popup as dm_Popup1;
+        let popupWin = popup as PopupTreasure;
         popupWin.finishedCallback = () => {
           console.log(" Just Closed Popup !!!");
         };

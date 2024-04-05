@@ -1,21 +1,29 @@
-import { DT_listTreasureMap_LocalStorage } from "./../../common/dm_Config";
-import { IP_GET_RECORD_PLAYERS } from "./../../model/DT_inputDataModel";
-import { DT_PLAYER_INFO_MODEL, DT_listRandomLocationTreasure_dataModel } from "./../../model/DT_outputDataModel";
+import { DT_listTreasureMap_LocalStorage } from "./../../common/Config";
+import { IP_GET_RECORD_PLAYERS } from "./../../model/InputDataModel";
+import { DT_PLAYER_INFO_MODEL, DT_listRandomLocationTreasure_dataModel } from "./../../model/OutputDataModel";
 import { VDEventListener } from "../../../../../vd-framework/common/VDEventListener";
-import { DT_GAME_STATUS_EVENT, DT_commanID_IP, DT_commandID_OP } from "../../network/DT_networkDefine";
-import { I_director, I_gamePlaySevice, I_playScreen } from "./../../common/dt_interfaceDefine";
+import { DT_GAME_STATUS_EVENT, DT_commanID_IP, DT_commandID_OP } from "../../network/NetworkDefine";
+import { I_director, I_gamePlaySevice, I_playScreen } from "./../../common/InterfaceDefine";
 import { _decorator, Component } from "cc";
-import { DT_sendResultOnclickingThePiece_dataModel } from "../../model/DT_outputDataModel";
-import { DT_KEY_WORD, DT_MESENGER } from "../../common/DT_define";
-import { IP_GET_LIST_TREASURE_MAP } from "./../../model/DT_inputDataModel";
-import { IP_GET_TREASURE_RANDOM_LIST } from "./../../model/DT_inputDataModel";
-import { IP_SET_LIST_MONEY_WIN_LOSE_NEW_ROUND } from "./../../model/DT_inputDataModel";
-import { dm_Popup1 } from "../../popups/dm_Popup1";
+import { DT_sendResultOnclickingThePiece_dataModel } from "../../model/OutputDataModel";
+import { DT_KEY_WORD, DT_MESENGER } from "../../common/Define";
+import { IP_GET_LIST_TREASURE_MAP } from "./../../model/InputDataModel";
+import { IP_GET_TREASURE_RANDOM_LIST } from "./../../model/InputDataModel";
+import { IP_SET_LIST_MONEY_WIN_LOSE_NEW_ROUND } from "./../../model/InputDataModel";
+import { PopupTreasure } from "../../popups/PopupTreasure";
 
 const { ccclass, property } = _decorator;
 
 @ccclass("gamePlaySevice")
-export class gamePlaySevice extends Component implements I_gamePlaySevice {
+export class gamePlaySevice implements I_gamePlaySevice {
+  private static _instance: gamePlaySevice = null!;
+  public static get instance(): gamePlaySevice {
+    if (this._instance == null) {
+      this._instance = new gamePlaySevice();
+    }
+
+    return this._instance;
+  }
   private _i_director: I_director = null;
   private _i_gamePlayCtr: I_playScreen = null;
   resultOnclickPiece: DT_sendResultOnclickingThePiece_dataModel = null;
@@ -34,9 +42,7 @@ export class gamePlaySevice extends Component implements I_gamePlaySevice {
     this._i_director = director;
     this._i_gamePlayCtr = gamePlayerCtr;
   }
-
-  //send data to director
-  sendToDirector_GetTreasureInMap() {}
+  
   //handle data to director
   getDataFromDirector(data) {
     let dataID = data.id;
@@ -45,6 +51,7 @@ export class gamePlaySevice extends Component implements I_gamePlaySevice {
         console.log(data);
         VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.PLAYER_INFO, data);
         break;
+
       case DT_commandID_OP.DT_INIT_TREASURE_START_GAME:
         console.log(data);
         VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.TREASURE_DATA, data);
@@ -56,7 +63,7 @@ export class gamePlaySevice extends Component implements I_gamePlaySevice {
     }
   }
 
-  getListRandomLocationTreasure(data: DT_listRandomLocationTreasure_dataModel, listNode: Node[], dm_popup1: dm_Popup1) {
+  getListRandomLocationTreasure(data: DT_listRandomLocationTreasure_dataModel, listNode: Node[], dm_popup1: PopupTreasure) {
     VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.LIST_RANDOM_LOCATION_TREASURE, data, listNode, dm_popup1);
   }
 
@@ -75,7 +82,6 @@ export class gamePlaySevice extends Component implements I_gamePlaySevice {
       }
       this.sendDataToSever_getRecordPlayers();
     } else if (this.resultOnclickPiece.money > 0 && this.resultOnclickPiece.resultOnClick) {
-      console.log("come in 1");
       this.treasureOpen++;
       this.setDataListTreasureInMap_localStorage(this.treasureOpen, this.indexMapCurrent, this.ValueRowAndColumn);
       this.playerInfor_localStorage = JSON.parse(localStorage.getItem(DT_KEY_WORD.PLAYER_INFO));
@@ -118,7 +124,6 @@ export class gamePlaySevice extends Component implements I_gamePlaySevice {
   }
 
   sendDataToSever_GetTreasureInMap() {
-    console.log("come in 2");
     if (localStorage.getItem(DT_KEY_WORD.LIST_TREASURE_IN_MAP) == null) {
       this.getListTreasureMap = {
         id: DT_commanID_IP.GET_LIST_TREASURE,
@@ -145,9 +150,10 @@ export class gamePlaySevice extends Component implements I_gamePlaySevice {
             this.ValueRowAndColumn = 3;
           }
           this.setDataListTreasureInMap_localStorage(this.treasureOpen, this.indexMapCurrent, this.ValueRowAndColumn);
-          this.scheduleOnce(function () {
+
+          setTimeout(function () {
             VDEventListener.dispatchEvent(DT_GAME_STATUS_EVENT.SHOW_MESENGER, DT_MESENGER.END_MAP);
-          }, 7);
+          }, 7000);
         } else {
           this.getListTreasureMap = {
             id: DT_commanID_IP.GET_LIST_TREASURE,

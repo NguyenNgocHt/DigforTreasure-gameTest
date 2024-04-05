@@ -1,4 +1,4 @@
-import { DT_playersInfo } from "../common/dm_Config";
+import { DT_playersInfo } from "../common/Config";
 
 export type DT_initTreaDataFull = {
   ID: number;

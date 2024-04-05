@@ -1,25 +1,25 @@
-import { DT_commandID_OP, DT_GAME_STATUS_EVENT } from "./../network/DT_networkDefine";
+import { DT_commandID_OP, DT_GAME_STATUS_EVENT } from "./../network/NetworkDefine";
 import { _decorator, Component, Node } from "cc";
 import { VDEventListener } from "../../../../vd-framework/common/VDEventListener";
-import { DT_initTreaDataFull, DT_listRandomLocationTreasure_OP, DT_playerInfoDataFull, DT_recordPlayersList, DT_sendResultOnclickingThePiece } from "../model/DT_outputDataFull";
-import { DT_convertDataModel } from "../model/DT_convertDataModel";
-import { I_buildDataModel } from "../common/dt_interfaceDefine";
+import { DT_initTreaDataFull, DT_listRandomLocationTreasure_OP, DT_playerInfoDataFull, DT_recordPlayersList, DT_sendResultOnclickingThePiece } from "../model/OutputDataFull";
+import { ConvertDataModel } from "../model/ConvertDataModel";
+import { I_buildDataModel } from "../common/InterfaceDefine";
 const { ccclass, property } = _decorator;
 
-@ccclass("DT_eventListenner")
-export class DT_eventListenner extends Component {
+@ccclass("EventListenner")
+export class EventListenner extends Component {
   constructor(dataModel: I_buildDataModel) {
     super();
     this.i_buildDataModel = dataModel;
   }
   startingTime: number = 0;
   started: boolean = false;
-  private static _instance: DT_eventListenner = null!;
+  private static _instance: EventListenner = null!;
   private i_buildDataModel: I_buildDataModel;
-  public static get instance(): DT_eventListenner {
+  public static get instance(): EventListenner {
     if (this._instance == null) {
-      let buildDataModel = new DT_convertDataModel();
-      this._instance = new DT_eventListenner(buildDataModel);
+      let buildDataModel = new ConvertDataModel();
+      this._instance = new EventListenner(buildDataModel);
     }
 
     return this._instance;

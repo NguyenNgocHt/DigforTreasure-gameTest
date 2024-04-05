@@ -1,15 +1,14 @@
-import { _decorator, Component, Label, Sprite, SpriteAtlas, tween, Vec3 } from "cc";
-import { DT_PLAYER_INFO_MODEL } from "../../model/DT_outputDataModel";
-import { DT_KEY_WORD } from "../../common/DT_define";
-import { DT_Global } from "../../common/DT_Global";
-import { DT_path } from "../../common/DT_define";
+import { _decorator, Component, Label, Sprite, SpriteAtlas } from "cc";
+import { DT_PLAYER_INFO_MODEL } from "../../model/OutputDataModel";
+import { DT_KEY_WORD } from "../../common/Define";
+import { Global } from "../../common/Global";
+import { DT_path } from "../../common/Define";
 import VDScreenManager from "../../../../../vd-framework/ui/VDScreenManager";
-import { I_playerView } from "../../common/dt_interfaceDefine";
+import { I_playerView } from "../../common/InterfaceDefine";
 const { ccclass, property } = _decorator;
 
 @ccclass("playerView")
 export class playerView extends Component implements I_playerView {
-
   @property(Sprite)
   avatarUser: Sprite = null;
 
@@ -35,7 +34,7 @@ export class playerView extends Component implements I_playerView {
     this.initPlayerInfoData = data;
     this.setAvatar(this.initPlayerInfoData.avatarID);
     this.userName.string = data.userName;
-    this.coin.string = DT_Global.instance.formatNumberWithCommas(data.money);
+    this.coin.string = Global.instance.formatNumberWithCommas(data.money);
   }
 
   setAvatar(avatarID: number) {
@@ -47,6 +46,6 @@ export class playerView extends Component implements I_playerView {
   }
 
   showCoinWinLose(coin: number) {
-    this.coin.string = DT_Global.instance.formatNumberWithCommas(coin);
+    this.coin.string = Global.instance.formatNumberWithCommas(coin);
   }
 }

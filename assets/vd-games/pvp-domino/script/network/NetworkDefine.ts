@@ -34,6 +34,7 @@ export const DT_GAME_STATUS_EVENT = {
   UNLOCKER_STATUS: "unlocker status",
   SHOW_EFFECT_BOOM: "show effect boom",
   SHOW_POINT_LOSE: "show point lose game",
+  DIG_END: "dig end",
 };
 export let DT_commandID_OP = {
   DT_INIT_TREASURE_START_GAME: 1000,

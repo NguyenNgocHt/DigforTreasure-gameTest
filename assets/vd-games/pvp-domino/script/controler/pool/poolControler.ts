@@ -2,8 +2,8 @@ import { pieceControler } from "./../pieceControler";
 import { instantiate } from "cc";
 import { Prefab } from "cc";
 import { _decorator, Component, Node } from "cc";
-import { dm_Director } from "../../common/dm_Director";
-import { I_poolControler } from "../../common/dt_interfaceDefine";
+import { Director } from "../../common/Director";
+import { I_poolControler } from "../../common/InterfaceDefine";
 const { ccclass, property } = _decorator;
 
 @ccclass("poolControler")
@@ -19,7 +19,7 @@ export class poolControler extends Component implements I_poolControler {
     this.icon_prefab = this.icon_prefab || this.icon_prefab;
     this.poolPieceList = [];
     this.initPool();
-    dm_Director.instance.pool_controler = this;
+    Director.instance.pool_controler = this;
   }
   private static _instance: poolControler = null!;
   public static get instance(): poolControler {

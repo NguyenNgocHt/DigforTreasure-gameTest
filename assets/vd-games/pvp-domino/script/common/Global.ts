@@ -1,17 +1,16 @@
-import { _decorator, Component, Node, SpriteAtlas } from "cc";
-import { DT_PLAYER_INFO_MODEL } from "../model/DT_outputDataModel";
+import { _decorator, SpriteAtlas } from "cc";
 import { SpriteFrame } from "cc";
-import { DT_path } from "./DT_define";
+import { DT_path } from "./Define";
 import VDScreenManager from "../../../../vd-framework/ui/VDScreenManager";
 const { ccclass, property } = _decorator;
 
-@ccclass("DT_Global")
-export class DT_Global {
-  private static _instance: DT_Global = null!;
+@ccclass("Global")
+export class Global {
+  private static _instance: Global = null!;
 
-  public static get instance(): DT_Global {
+  public static get instance(): Global {
     if (this._instance == null) {
-      this._instance = new DT_Global();
+      this._instance = new Global();
     }
 
     return this._instance;

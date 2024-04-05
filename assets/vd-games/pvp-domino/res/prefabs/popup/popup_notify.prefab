@@ -59,7 +59,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -112,7 +111,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -161,7 +159,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -387,7 +384,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -436,7 +432,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -581,7 +576,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -637,7 +631,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -686,7 +679,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -987,7 +979,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -1036,7 +1027,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -1337,7 +1327,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -1386,7 +1375,6 @@
       "y": 1,
       "z": 1
     },
-    "_mobility": 0,
     "_layer": 33554432,
     "_euler": {
       "__type__": "cc.Vec3",
@@ -1910,7 +1898,6 @@
       "__id__": 0
     },
     "fileId": "ef/wVNj6BNAoPt98bcmLFQ",
-    "instance": null,
     "targetOverrides": null
   }
 ]

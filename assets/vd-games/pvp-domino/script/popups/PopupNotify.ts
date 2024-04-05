@@ -1,12 +1,12 @@
 import { _decorator, Node, Label, log } from "cc";
 import { VDAudioManager } from "../../../../vd-framework/audio/VDAudioManager";
 import VDBasePopup from "../../../../vd-framework/ui/VDBasePopup";
-import { dm_Director } from "../common/dm_Director";
+import { Director } from "../common/Director";
 
 const { ccclass, property } = _decorator;
 
-@ccclass("dm_PopupNotify")
-export class dm_PopupNotify extends VDBasePopup {
+@ccclass("PopupNotify")
+export class PopupNotify extends VDBasePopup {
   @property(Label)
   contentPopup: Label = null!;
 
@@ -29,7 +29,7 @@ export class dm_PopupNotify extends VDBasePopup {
   btnConfirmCallback: any = null!;
 
   onLoad() {
-    dm_Director.instance.notifyPopup = this;
+    Director.instance.notifyPopup = this;
   }
 
   disableAllBtn() {

@@ -1,4 +1,4 @@
-import { DT_playersInfo } from "../common/dm_Config";
+import { DT_playersInfo } from "../common/Config";
 export type DT_INIT_TREASURE_MODEL = {
   id: number;
   listTreasureStatus: number[];

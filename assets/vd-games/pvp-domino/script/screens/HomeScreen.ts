@@ -1,23 +1,23 @@
-import { DT_PLAYER_INFO_MODEL } from "./../model/DT_outputDataModel";
+import { DT_PLAYER_INFO_MODEL } from "./../model/OutputDataModel";
 import { Prefab } from "cc";
 import { _decorator, sp, instantiate } from "cc";
 import VDBaseScreen from "../../../../vd-framework/ui/VDBaseScreen";
 import VDScreenManager from "../../../../vd-framework/ui/VDScreenManager";
-import { dm_Director } from "../common/dm_Director";
-import { dm_PlayScreen3 } from "./dm_PlayScreen3";
+import { Director } from "../common/Director";
+import { PlayScreen } from "./PlayScreen";
 import VDBasePopup from "../../../../vd-framework/ui/VDBasePopup";
-import { DT_KEY_WORD, DT_path } from "../common/DT_define";
+import { DT_KEY_WORD, DT_path } from "../common/Define";
 import { Label } from "cc";
 import { Sprite } from "cc";
-import { I_homeScreen, I_playerView } from "../common/dt_interfaceDefine";
+import { I_homeScreen, I_playerView } from "../common/InterfaceDefine";
 import { playerView } from "./playScreen/playerView";
-import { PLAYER_NAME_DATA } from "../model/DT_inputDataModel";
-import { DT_commanID_IP } from "../network/DT_networkDefine";
+import { PLAYER_NAME_DATA } from "../model/InputDataModel";
+import { DT_commanID_IP } from "../network/NetworkDefine";
 
 const { ccclass, property } = _decorator;
 
-@ccclass("dm_PlayScreen")
-export class dm_PlayScreen extends VDBaseScreen implements I_homeScreen {
+@ccclass("HomeScreen")
+export class HomeScreen extends VDBaseScreen implements I_homeScreen {
   @property(Label)
   playerName: Label = null;
   @property(Label)
@@ -53,7 +53,7 @@ export class dm_PlayScreen extends VDBaseScreen implements I_homeScreen {
         id: DT_commanID_IP.PLAYER_NAME_ID,
         playerName: this.playerInfor_localStogare.userName,
       };
-      dm_Director.instance.sendDataToSever(this.playerNameDataModel);
+      Director.instance.sendDataToSever(this.playerNameDataModel);
     }
   }
 
@@ -80,7 +80,7 @@ export class dm_PlayScreen extends VDBaseScreen implements I_homeScreen {
         VDScreenManager.instance.pushScreen(
           play_screen,
           (screen: VDBaseScreen) => {
-            dm_Director.instance.playScreen = screen as dm_PlayScreen3;
+            Director.instance.playScreen = screen as PlayScreen;
           },
           false
         );

@@ -1,11 +1,11 @@
 import { Sprite } from "cc";
 import { spriteAssembler } from "cc";
 import { _decorator, Component, Node, Label } from "cc";
-import { DT_Global } from "../../common/DT_Global";
+import { Global } from "../../common/Global";
 const { ccclass, property } = _decorator;
 
-@ccclass("dm_Item_TableView")
-export class dm_Item_TableView extends Component {
+@ccclass("Item_TableView")
+export class Item_TableView extends Component {
   @property(Label)
   lbItem: Label = null!;
 
@@ -35,7 +35,7 @@ export class dm_Item_TableView extends Component {
     this.lbItem && (this.lbItem.string = itemData.id);
     this.lbContent_1 && (this.lbContent_1.string = itemData.content1);
     this.lbContent_2 && (this.lbContent_2.string = itemData.content2);
-    this.avatarUser && (this.avatarUser.spriteFrame = DT_Global.instance.getAvatarByID(itemData.avatarID));
+    this.avatarUser && (this.avatarUser.spriteFrame = Global.instance.getAvatarByID(itemData.avatarID));
     if (itemData.isMain) {
       this.playerMain.active = true;
     } else {

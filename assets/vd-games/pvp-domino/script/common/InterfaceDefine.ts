@@ -1,13 +1,13 @@
 import { Node } from "cc";
-import { DT_initTreaDataFull, DT_listRandomLocationTreasure_OP, DT_playerInfoDataFull, DT_recordPlayersList, DT_sendResultOnclickingThePiece } from "../model/DT_outputDataFull";
+import { DT_initTreaDataFull, DT_listRandomLocationTreasure_OP, DT_playerInfoDataFull, DT_recordPlayersList, DT_sendResultOnclickingThePiece } from "../model/OutputDataFull";
 import {
   DT_INIT_TREASURE_MODEL,
   DT_PLAYER_INFO_MODEL,
   DT_listRandomLocationTreasure_dataModel,
   DT_recordPlayersList_dataModel,
   DT_sendResultOnclickingThePiece_dataModel,
-} from "../model/DT_outputDataModel";
-import { dm_PlayScreen3 } from "../screens/dm_PlayScreen3";
+} from "../model/OutputDataModel";
+import { PlayScreen } from "../screens/PlayScreen";
 
 export interface I_homeScreen {
   initPlayerInfo(data: DT_PLAYER_INFO_MODEL): void;
@@ -20,7 +20,7 @@ export interface I_playScreen {
   callMenuGroup_onClickBtnBackToScreen1(): void;
 }
 
-export interface I_popup1 {
+export interface I_popupTreasure {
   onClickButton_sound(): void;
   registerEvent(): void;
   setup_newPopup(): void;
@@ -44,7 +44,7 @@ export interface I_director {
 }
 export interface I_initObjControler {
   init_treasure(data: DT_INIT_TREASURE_MODEL): void;
-  setVarInterface(playGameControler: dm_PlayScreen3): void;
+  setVarInterface(playGameControler: PlayScreen): void;
 }
 export interface I_menuControler {
   onClickBtnBackToScreen1(): void;

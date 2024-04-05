@@ -1,47 +1,48 @@
 import { gamePlaySevice } from "./../screens/playScreen/gamePlaySevice";
-import { I_director, I_gamePlaySevice, I_homeScreen, I_playScreen, I_poolControler, I_popup1 } from "./dt_interfaceDefine";
+import { I_director, I_gamePlaySevice, I_homeScreen, I_playScreen, I_poolControler, I_popupTreasure } from "./InterfaceDefine";
 import { poolControler } from "./../controler/pool/poolControler";
-import { dm_Popup1 } from "./../popups/dm_Popup1";
-import { dm_PlayScreen3 } from "./../screens/dm_PlayScreen3";
+import { PopupTreasure } from "../popups/PopupTreasure";
+import { PlayScreen } from "./../screens/PlayScreen";
 import { _decorator, Node } from "cc";
-import { dm_PlayScreen } from "../screens/dm_PlayScreen";
+
 import { VDEventListener } from "../../../../vd-framework/common/VDEventListener";
-import { DT_GAME_STATUS_EVENT } from "../network/DT_networkDefine";
+import { DT_GAME_STATUS_EVENT } from "../network/NetworkDefine";
 import {
   DT_INIT_TREASURE_MODEL,
   DT_listRandomLocationTreasure_dataModel,
   DT_PLAYER_INFO_MODEL,
   DT_recordPlayersList_dataModel,
   DT_sendResultOnclickingThePiece_dataModel,
-} from "../model/DT_outputDataModel";
-import { PLAYER_NAME_DATA } from "../model/DT_inputDataModel";
-import { dm_PopupNotify } from "../popups/dm_PopupNotify";
-import { dm_TableView } from "../popups/table_view/dm_TableView";
+} from "../model/OutputDataModel";
+import { PLAYER_NAME_DATA } from "../model/InputDataModel";
+import { PopupNotify } from "../popups/PopupNotify";
+import { TableView } from "../popups/table_view/TableView";
 import { VDTableViewDataSource } from "../../../../vd-framework/ui/VDTableView";
+import { HomeScreen } from "../screens/HomeScreen";
 const { ccclass, property } = _decorator;
 
-@ccclass("dm_Director")
-export class dm_Director implements I_director {
-  private static _instance: dm_Director = null!;
+@ccclass("Director")
+export class Director implements I_director {
+  private static _instance: Director = null!;
 
-  public static get instance(): dm_Director {
+  public static get instance(): Director {
     if (this._instance == null) {
-      this._instance = new dm_Director();
+      this._instance = new Director();
     }
 
     return this._instance;
   }
 
-  playScreen: dm_PlayScreen3 | null = null;
-  homeScreen: dm_PlayScreen | null = null;
-  dm_popup_1: dm_Popup1 | null = null;
+  playScreen: PlayScreen | null = null;
+  homeScreen: HomeScreen | null = null;
+  popupStreasure: PopupTreasure | null = null;
   pool_controler: poolControler | null = null;
-  notifyPopup: dm_PopupNotify | null = null;
-  tableView: dm_TableView | null = null;
+  notifyPopup: PopupNotify | null = null;
+  tableView: TableView | null = null;
 
   private _iHomeScreen: I_homeScreen = null;
   private _iPlayScreen: I_playScreen = null;
-  private _iPopup1: I_popup1 = null;
+  private _iPopupTreasure: I_popupTreasure = null;
   private _iPoolControler: I_poolControler = null;
   private _iTableView: VDTableViewDataSource = null;
   private _iGamePlaySevice: I_gamePlaySevice = null;
@@ -126,9 +127,9 @@ export class dm_Director implements I_director {
           }
         }
       }
-      if (this.dm_popup_1) {
-        this.set_iPopup1(this.dm_popup_1);
-        this._iGamePlaySevice.getListRandomLocationTreasure(this.listLocationTreasure, listIconNode, this.dm_popup_1);
+      if (this.popupStreasure) {
+        this.set_iPopup1(this.popupStreasure);
+        this._iGamePlaySevice.getListRandomLocationTreasure(this.listLocationTreasure, listIconNode, this.popupStreasure);
       }
     }, 10);
   }
@@ -191,9 +192,9 @@ export class dm_Director implements I_director {
   }
 
   onClickButton_sound() {
-    if (this.dm_popup_1) {
-      this.set_iPopup1(this.dm_popup_1);
-      this._iPopup1.onClickButton_sound();
+    if (this.popupStreasure) {
+      this.set_iPopup1(this.popupStreasure);
+      this._iPopupTreasure.onClickButton_sound();
     }
   }
 
@@ -212,8 +213,8 @@ export class dm_Director implements I_director {
     this._iPlayScreen = i_playScreen;
   }
 
-  set_iPopup1(i_popup1: I_popup1) {
-    this._iPopup1 = i_popup1;
+  set_iPopup1(popupTreasure: I_popupTreasure) {
+    this._iPopupTreasure = popupTreasure;
   }
 
   set_iPoolControl(i_poolControl: I_poolControler) {
@@ -223,10 +224,7 @@ export class dm_Director implements I_director {
   set_iTableView(i_tableView: VDTableViewDataSource) {
     this._iTableView = i_tableView;
   }
-  set_iGamePlaySevice(playScreen: dm_PlayScreen3) {
-    console.log("playScreen", playScreen.node);
-    let gamePlay_Sevice = playScreen.node.getComponent(gamePlaySevice);
-    console.log("gamePlaySevice", gamePlay_Sevice);
-    this._iGamePlaySevice = gamePlay_Sevice;
+  set_iGamePlaySevice(playScreen: PlayScreen) {
+    this._iGamePlaySevice = gamePlaySevice.instance;
   }
 }

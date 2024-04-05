@@ -1,25 +1,25 @@
 import { showIUControler } from "./../controler/showIUControler";
 import { initObjControler } from "./../controler/initObjControler";
-import { DT_GAME_STATUS_EVENT } from "./../network/DT_networkDefine";
+import { DT_GAME_STATUS_EVENT } from "./../network/NetworkDefine";
 import { _decorator, Node } from "cc";
 import VDBaseScreen from "../../../../vd-framework/ui/VDBaseScreen";
-import { dm_Director } from "../common/dm_Director";
-import { DT_INIT_TREASURE_MODEL, DT_listRandomLocationTreasure_dataModel, DT_PLAYER_INFO_MODEL, DT_sendResultOnclickingThePiece_dataModel } from "../model/DT_outputDataModel";
-import { IP_GET_LIST_TREASURE_MAP, IP_GET_RECORD_PLAYERS } from "../model/DT_inputDataModel";
+import { Director } from "../common/Director";
+import { DT_INIT_TREASURE_MODEL, DT_listRandomLocationTreasure_dataModel, DT_PLAYER_INFO_MODEL, DT_sendResultOnclickingThePiece_dataModel } from "../model/OutputDataModel";
+import { IP_GET_LIST_TREASURE_MAP, IP_GET_RECORD_PLAYERS } from "../model/InputDataModel";
 
-import { DT_listTreasureMap_LocalStorage } from "../common/dm_Config";
-import { I_director, I_gamePlaySevice, I_initObjControler, I_menuControler, I_playScreen, I_playerView, I_popup1, I_popup1_svice, I_showUI } from "../common/dt_interfaceDefine";
+import { DT_listTreasureMap_LocalStorage } from "../common/Config";
+import { I_director, I_gamePlaySevice, I_initObjControler, I_menuControler, I_playScreen, I_playerView, I_popupTreasure, I_popup1_svice, I_showUI } from "../common/InterfaceDefine";
 import { playerView } from "./playScreen/playerView";
 import { menuControler } from "./playScreen/menuControler";
 import { VDEventListener } from "../../../../vd-framework/common/VDEventListener";
 import { gamePlaySevice } from "./playScreen/gamePlaySevice";
-import { dm_Popup1 } from "../popups/dm_Popup1";
-import { popup1_sevice } from "../popups/popup1/popup1_sevice";
+import { PopupTreasure } from "./../popups/PopupTreasure";
+import { popupTreasure_sevice } from "../popups/popupTreasure/popupTreasure_sevice";
 
 const { ccclass, property } = _decorator;
 
-@ccclass("dm_PlayScreen3")
-export class dm_PlayScreen3 extends VDBaseScreen implements I_playScreen {
+@ccclass("PlayScreen")
+export class PlayScreen extends VDBaseScreen implements I_playScreen {
   @property(Node)
   listPosMap1: Node = null;
   @property(Node)
@@ -34,8 +34,6 @@ export class dm_PlayScreen3 extends VDBaseScreen implements I_playScreen {
   PlayerView: playerView = null;
   @property(menuControler)
   MenuCtr: menuControler = null;
-  @property(gamePlaySevice)
-  gamePlaySevice: gamePlaySevice = null;
 
   playerInfor_localStorage: DT_PLAYER_INFO_MODEL = null;
   listTreasureMap_localStorage: DT_listTreasureMap_LocalStorage = null;
@@ -57,17 +55,17 @@ export class dm_PlayScreen3 extends VDBaseScreen implements I_playScreen {
   private _i_playerView: I_playerView = null;
   private _i_UICtr: I_showUI = null;
   private _iGamePlaySecive: I_gamePlaySevice = null;
-  private _iPopup1: I_popup1 = null;
-  private _iPopup1_sevice: I_popup1_svice = null;
+  private _iPopupTreasure: I_popupTreasure = null;
+  private _iPopupTreasure_sevice: I_popup1_svice = null;
 
   start() {
     this.registerEvent();
     this.scheduleOnce(function () {
-      this.set_varInterface(dm_Director.instance, this.initControler, this.MenuCtr, this.PlayerView, this.showUIControler, this.gamePlaySevice);
+      this.set_varInterface(Director.instance, this.initControler, this.MenuCtr, this.PlayerView, this.showUIControler, gamePlaySevice.instance);
       this.initControler.setVarInterface(this);
       this.MenuCtr.setVarInterface(this);
       this.showUIControler.setVarInterface(this);
-      this.gamePlaySevice.setVarInterface(dm_Director.instance, this);
+      gamePlaySevice.instance.setVarInterface(Director.instance, this);
       this._iGamePlaySecive.sendDataToSever_GetTreasureInMap();
       this._iGamePlaySecive.sendDataToSever_getRecordPlayers();
     }, 0.2);
@@ -144,15 +142,15 @@ export class dm_PlayScreen3 extends VDBaseScreen implements I_playScreen {
     this._i_menuCtr.onClickBtnBackToScreen1();
   }
 
-  sendDataToPopup_initLocationTreasure(data: DT_listRandomLocationTreasure_dataModel, listNode: Node[], dm_popup1: dm_Popup1) {
-    this._iPopup1_sevice = dm_popup1.node.getComponent(popup1_sevice);
-    this._iPopup1 = dm_popup1;
-    this._iPopup1.setup_newPopup();
-    this._iPopup1_sevice.getDataFromGamePlayScreen_initLocationTreasure(data, listNode);
+  sendDataToPopup_initLocationTreasure(data: DT_listRandomLocationTreasure_dataModel, listNode: Node[], popupTreasure: PopupTreasure) {
+    this._iPopupTreasure_sevice = popupTreasure_sevice.instance;
+    this._iPopupTreasure = popupTreasure;
+    this._iPopupTreasure.setup_newPopup();
+    this._iPopupTreasure_sevice.getDataFromGamePlayScreen_initLocationTreasure(data, listNode);
   }
 
   setResultOnclickTreasure(data) {
-    this._iPopup1_sevice.getDataFromGamePlayScreen(data);
+    this._iPopupTreasure_sevice.getDataFromGamePlayScreen(data);
   }
   set_varInterface(director: I_director, initObjControler: I_initObjControler, menuCtr: I_menuControler, playerView: I_playerView, UICtr: I_showUI, gamePlaySevice: I_gamePlaySevice) {
     this._i_director = director;

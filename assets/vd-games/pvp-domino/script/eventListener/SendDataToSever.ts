@@ -1,16 +1,16 @@
 import { _decorator, Component, Node } from "cc";
 import { VDEventListener } from "../../../../vd-framework/common/VDEventListener";
-import { DT_GAME_STATUS_EVENT } from "../network/DT_networkDefine";
+import { DT_GAME_STATUS_EVENT } from "../network/NetworkDefine";
 VDEventListener;
 const { ccclass, property } = _decorator;
 
-@ccclass("DT_sendDataToSever")
-export class DT_sendDataToSever extends Component {
-  private static _instance: DT_sendDataToSever = null!;
+@ccclass("SendDataToSever")
+export class SendDataToSever extends Component {
+  private static _instance: SendDataToSever = null!;
 
-  public static get instance(): DT_sendDataToSever {
+  public static get instance(): SendDataToSever {
     if (this._instance == null) {
-      this._instance = new DT_sendDataToSever();
+      this._instance = new SendDataToSever();
     }
 
     return this._instance;

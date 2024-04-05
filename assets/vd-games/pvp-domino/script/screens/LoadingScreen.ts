@@ -8,14 +8,14 @@ import VDLocalDataManager from "../../../../vd-framework/common/VDLocalDataManag
 import VDBasePopup from "../../../../vd-framework/ui/VDBasePopup";
 import VDBaseScreen from "../../../../vd-framework/ui/VDBaseScreen";
 import VDScreenManager from "../../../../vd-framework/ui/VDScreenManager";
-import { dm_Config } from "../common/dm_Config";
-import { dm_Director } from "../common/dm_Director";
-import { dm_PlayScreen } from "./dm_PlayScreen";
-import { dm_PopupNotify } from "../popups/dm_PopupNotify";
+import { dm_Config } from "../common/Config";
+import { Director } from "../common/Director";
+import { HomeScreen } from "./HomeScreen";
+import { PopupNotify } from "../popups/PopupNotify";
 const { ccclass, property } = _decorator;
 
-@ccclass("dm_LoadingScreen")
-export class dm_LoadingScreen extends Component {
+@ccclass("LoadingScreen")
+export class LoadingScreen extends Component {
   @property(ProgressBar)
   loadingProgress: ProgressBar = null!;
 
@@ -172,7 +172,7 @@ export class dm_LoadingScreen extends Component {
 
     let play_screen = VDScreenManager.instance.assetBundle.get("res/prefabs/screen/play_screen", Prefab)!;
     VDScreenManager.instance.replaceScreenAtIndex(play_screen, 0, (screen: VDBaseScreen) => {
-      dm_Director.instance.homeScreen = screen as dm_PlayScreen;
+      Director.instance.homeScreen = screen as HomeScreen
     });
   }
 
@@ -180,7 +180,7 @@ export class dm_LoadingScreen extends Component {
     VDScreenManager.instance.showPopupFromPrefabName(
       "res/prefabs/popup/popup_notify",
       (popup: VDBasePopup) => {
-        let popupDisplay = popup as dm_PopupNotify;
+        let popupDisplay = popup as PopupNotify;
         popupDisplay.setupPopup(message, [
           () => {
             VDScreenManager.instance.hidePopup(true);

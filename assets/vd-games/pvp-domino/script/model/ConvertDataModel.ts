@@ -1,16 +1,16 @@
 import { _decorator } from "cc";
-import { DT_initTreaDataFull, DT_listRandomLocationTreasure_OP, DT_playerInfoDataFull, DT_recordPlayersList, DT_sendResultOnclickingThePiece } from "./DT_outputDataFull";
-import { DT_INIT_TREASURE_MODEL, DT_listRandomLocationTreasure_dataModel, DT_PLAYER_INFO_MODEL, DT_recordPlayersList_dataModel, DT_sendResultOnclickingThePiece_dataModel } from "./DT_outputDataModel";
-import { I_buildDataModel } from "../common/dt_interfaceDefine";
+import { DT_initTreaDataFull, DT_listRandomLocationTreasure_OP, DT_playerInfoDataFull, DT_recordPlayersList, DT_sendResultOnclickingThePiece } from "./OutputDataFull";
+import { DT_INIT_TREASURE_MODEL, DT_listRandomLocationTreasure_dataModel, DT_PLAYER_INFO_MODEL, DT_recordPlayersList_dataModel, DT_sendResultOnclickingThePiece_dataModel } from "./OutputDataModel";
+import { I_buildDataModel } from "../common/InterfaceDefine";
 const { ccclass, property } = _decorator;
 
-@ccclass("DT_convertDataModel")
-export class DT_convertDataModel implements I_buildDataModel {
-  private static _instance: DT_convertDataModel = null!;
+@ccclass("ConvertDataModel")
+export class ConvertDataModel implements I_buildDataModel {
+  private static _instance: ConvertDataModel = null!;
 
-  public static get instance(): DT_convertDataModel {
+  public static get instance(): ConvertDataModel {
     if (this._instance == null) {
-      this._instance = new DT_convertDataModel();
+      this._instance = new ConvertDataModel();
     }
 
     return this._instance;

@@ -1,11 +1,11 @@
-import { IP_SEND_INDEX_ONCLICK_PIECE } from "./../model/DT_inputDataModel";
+import { IP_SEND_INDEX_ONCLICK_PIECE } from "./../model/InputDataModel";
 import { _decorator, Component, Node } from "cc";
-import { dm_Director } from "../common/dm_Director";
-import { DT_commanID_IP } from "../network/DT_networkDefine";
+import { Director } from "../common/Director";
+import { DT_commanID_IP } from "../network/NetworkDefine";
 import { Sprite } from "cc";
 import { Tween } from "cc";
 import { tween } from "cc";
-import { DT_path } from "../common/DT_define";
+import { DT_path } from "../common/Define";
 import VDScreenManager from "../../../../vd-framework/ui/VDScreenManager";
 import { SpriteAtlas } from "cc";
 import { Label } from "cc";
@@ -60,14 +60,14 @@ export class pieceControler extends Component {
 
   onClickToPiece() {
     if (!this.isLockOnclick) {
-      dm_Director.instance.onClickButton_sound();
+      Director.instance.onClickButton_sound();
       this.IP_sendIndexOnclickPiece = {
         id: DT_commanID_IP.SEND_INDEX_ONCLICK_PIECE,
         pieceIndex: this.pieceIndex,
         indexInArr: this.indexInArr,
       };
       console.log("IP_sendIndexOnclickPiece", this.IP_sendIndexOnclickPiece);
-      dm_Director.instance.sendDataToSever(this.IP_sendIndexOnclickPiece);
+      Director.instance.sendDataToSever(this.IP_sendIndexOnclickPiece);
     }
   }
 

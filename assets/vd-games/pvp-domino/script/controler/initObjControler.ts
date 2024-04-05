@@ -1,9 +1,9 @@
 import { _decorator, Component, Node, color, Button, Sprite, SpriteFrame } from "cc";
-import { DT_INIT_TREASURE_MODEL } from "../model/DT_outputDataModel";
-import { DT_path } from "../common/DT_define";
+import { DT_INIT_TREASURE_MODEL } from "../model/OutputDataModel";
+import { DT_path } from "../common/Define";
 import VDScreenManager from "../../../../vd-framework/ui/VDScreenManager";
-import { DT_PLAYER_INFO_MODEL } from "../model/DT_outputDataModel";
-import { I_initObjControler, I_playScreen } from "../common/dt_interfaceDefine";
+import { DT_PLAYER_INFO_MODEL } from "../model/OutputDataModel";
+import { I_initObjControler, I_playScreen } from "../common/InterfaceDefine";
 
 const { ccclass, property } = _decorator;
 

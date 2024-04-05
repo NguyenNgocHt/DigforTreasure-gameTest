@@ -1,9 +1,9 @@
 import { _decorator, Component, Node, SpriteFrame, Sprite, Vec3, Label, tween } from "cc";
-import { DT_listRandomLocationTreasure_dataModel } from "../../model/DT_outputDataModel";
-import { DT_path } from "../../common/DT_define";
+import { DT_listRandomLocationTreasure_dataModel } from "../../model/OutputDataModel";
+import { DT_path } from "../../common/Define";
 import VDScreenManager from "../../../../../vd-framework/ui/VDScreenManager";
 import { pieceControler } from "../../controler/pieceControler";
-import { I_popup1_view } from "../../common/dt_interfaceDefine";
+import { I_popup1_view } from "../../common/InterfaceDefine";
 const { ccclass, property } = _decorator;
 
 @ccclass("popup1_view")
